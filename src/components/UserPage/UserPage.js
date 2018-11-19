@@ -1,26 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 
-// this could also be written with destructuring parameters as:
-// const UserPage = ({ user }) => (
-// and then instead of `props.user.username` you could use `user.username`
-const UserPage = (props) => (
-  <div>
-    <h1 id="welcome">
-      Welcome, { props.user.username }!
-    </h1>
-    <p>Your ID is: {props.user.id}</p>
-    <LogOutButton className="log-in" />
-  </div>
-);
+class UserPage extends Component {
 
-// Instead of taking everything from state, we just want the user info.
+    newGameClick = () => {
+        this.props.history.push('/addgame')
+    }
+
+    render() {
+        return (
+          <div>
+            <div>
+              <h1 id="welcome">
+                Welcome, { this.props.state.user.username }!
+              </h1>
+              <p>Your ID is: {this.props.state.user.id}</p>
+              <LogOutButton className="log-in" />
+            </div>
+            <div>
+              <button onClick={this.newGameClick}>Start New Game</button>
+            </div>
+          </div>
+        );
+    }
+}
+
+// Instead of taking everything from state, we just want the error messages.
 // if you wanted you could write this code like this:
-// const mapStateToProps = ({user}) => ({ user });
+// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
-  user: state.user,
+ state
 });
 
-// this allows us to use <App /> in index.js
 export default connect(mapStateToProps)(UserPage);
+
