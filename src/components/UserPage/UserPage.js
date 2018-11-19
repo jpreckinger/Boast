@@ -15,8 +15,6 @@ class UserPage extends Component {
               <h1 id="welcome">
                 Welcome, { this.props.state.user.username }!
               </h1>
-              <p>Your ID is: {this.props.state.user.id}</p>
-              <LogOutButton className="log-in" />
             </div>
             <div>
               <button onClick={this.newGameClick}>Start New Game</button>
