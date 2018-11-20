@@ -1,0 +1,9 @@
+#welcome{
+    display: flex;
+    justify-content: center;
+}
+
+#playThis{
+    display: flex;
+    justify-content: center;
+}

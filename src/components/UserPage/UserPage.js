@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import './UserPage.css';
 
 class UserPage extends Component {
 
@@ -13,10 +13,10 @@ class UserPage extends Component {
           <div>
             <div>
               <h1 id="welcome">
-                Welcome, { this.props.state.user.username }!
+                Hello, { this.props.state.user.username }!
               </h1>
             </div>
-            <div>
+            <div id="playThis">
               <button onClick={this.newGameClick}>Start New Game</button>
             </div>
           </div>
