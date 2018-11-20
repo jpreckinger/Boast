@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Input from '@material-ui/core/Input';
+import AddGameCards from '../AddGameCards/AddGameCards';
+import './AddGame.css'
 
 class AddGame extends Component {
 
@@ -42,11 +44,12 @@ class AddGame extends Component {
                     placeholder="Search" value={this.state.query}/>
                 </form>
             </div>
-            <div>
+            <div id="gameList">
                 {this.props.reduxState.displayGamesSearch.map( game => (
                     <div key={game.id}>
-                        <p>{game.name}</p>
-                        <img src={game.image_url} alt={game.name} height='150' width='auto'/>
+                        {/* <p>{game.name}</p>
+                        <img src={game.image_url} alt={game.name} height='150' width='auto'/> */}
+                        <AddGameCards game={game}/>
                     </div>
                 ))}
             </div>
