@@ -10,8 +10,10 @@ class AddGame extends Component {
         query: '',
     }
 
-    addGameClick = () => {
-        this.props.history.push('/playgame')
+    addGameClick = (game) => {
+        this.props.history.push('/playgame');
+        console.log('payload',game);
+        this.props.dispatch({type: 'ADD_NEW_GAME', payload: game})
     }
 
     customGameClick = () => {
@@ -46,9 +48,7 @@ class AddGame extends Component {
             </div>
             <div id="gameList">
                 {this.props.reduxState.displayGamesSearch.map( game => (
-                    <div key={game.id}>
-                        {/* <p>{game.name}</p>
-                        <img src={game.image_url} alt={game.name} height='150' width='auto'/> */}
+                    <div key={game.id} onClick={() => this.addGameClick(game)}>
                         <AddGameCards game={game}/>
                     </div>
                 ))}
