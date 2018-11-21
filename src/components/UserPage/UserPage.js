@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './UserPage.css';
+import ActionMenu from '../ActionMenu/ActionMenu';
 
 class UserPage extends Component {
 
@@ -19,6 +20,7 @@ class UserPage extends Component {
             <div id="playThis">
               <button onClick={this.newGameClick}>Start New Game</button>
             </div>
+            <ActionMenu />
           </div>
         );
     }
