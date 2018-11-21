@@ -7,7 +7,7 @@ router.get('/:name', (req, res) => {
     console.log(req.user.id);
     const nameToSearch =  req.params.name ;
     console.log( nameToSearch );
-    const sqlText = `SELECT users.username FROM users
+    const sqlText = `SELECT username, id FROM users
                     WHERE lower(users.username) SIMILAR TO ($1);`;
     pool.query(sqlText, [nameToSearch + '%'])
     .then((result) => {

@@ -16,6 +16,7 @@ import Input from '@material-ui/core/Input';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import './ActionMenu.css';
+import AddCircle from '@material-ui/icons/AddCircle';
 
 const styles = theme => ({
   root: {
@@ -32,6 +33,7 @@ class NestedList extends React.Component {
   state = {
     open: true,
     search: [],
+    query: ''
   };
 
     handleClick = () => {
@@ -39,17 +41,28 @@ class NestedList extends React.Component {
      };
 
     handleChange = (event) => {
-        axios.get(`/friends/${event.target.value}`)
-        .then((response) => {
-            this.setState({search: response.data})
-        })
-        .catch((error) => {
-            console.log('error searching for friends');
-        })
+        if(event.target.value){
+            axios.get(`/friends/${event.target.value}`)
+            .then((response) => {
+                this.setState({search: response.data})
+            })
+            .catch((error) => {
+                console.log('error searching for friends');
+            })
+            this.setState({query: event.target.value})
+        }
+        this.setState({query: event.target.value, search: []})
      }
 
-     sendRequest = (event) => {
-         console.log(event.target.value);
+     sendRequest = (user) => {
+         this.setState({ search: [], query: ''});
+         axios.post('/friends', {data: user.id})
+         .then(() => {
+            alert('Friend request sent to ', user.username, '!')
+         })
+         .catch(()=> {
+             alert('Oops, something went wrong. Try again later.')
+         })
      }
 
   render() {
@@ -90,11 +103,10 @@ class NestedList extends React.Component {
                     placeholder="Username" value={this.state.query}/>
                 </ListItem>
                 {this.state.search.map( user => (
-                    <div className="liveSearch" key={user.username}>
-                        <ListItem button onClick={this.sendRequest}>
-                            {user.username}
-                        </ListItem>
-                    </div>
+                    <ListItem button key={user.username} onClick={() => this.sendRequest(user)}>
+                        <ListItemIcon><AddCircle/></ListItemIcon>
+                        <ListItemText inset primary={user.username}/>
+                    </ListItem>
                   ))}
             </List>
           </Collapse>
