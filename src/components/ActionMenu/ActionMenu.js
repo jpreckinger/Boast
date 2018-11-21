@@ -58,7 +58,7 @@ class NestedList extends React.Component {
          this.setState({ search: [], query: ''});
          axios.post('/friends', {data: user.id})
          .then(() => {
-            alert('Friend request sent to ', user.username, '!')
+            alert(`Friend request sent to ${user.username}!`)
          })
          .catch(()=> {
              alert('Oops, something went wrong. Try again later.')
