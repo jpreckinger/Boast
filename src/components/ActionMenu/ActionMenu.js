@@ -31,7 +31,8 @@ const styles = theme => ({
 
 class NestedList extends React.Component {
   state = {
-    open: true,
+    open: false,
+    requestOpen: false,
     search: [],
     query: ''
   };
@@ -39,6 +40,10 @@ class NestedList extends React.Component {
     handleClick = () => {
         this.setState(state => ({ open: !state.open }));
      };
+
+    handleRequestClick = () => {
+        this.setState(state => ({ requestOpen: !state.requestOpen}))
+    };
 
     handleChange = (event) => {
         if(event.target.value){
@@ -108,6 +113,23 @@ class NestedList extends React.Component {
                         <ListItemText inset primary={user.username}/>
                     </ListItem>
                   ))}
+            </List>
+          </Collapse>
+          <ListItem button onClick={this.handleRequestClick}>
+            <ListItemIcon>
+                <PersonAdd />
+            </ListItemIcon>
+            <ListItemText inset primary="Friend Requests" />
+            {this.state.requestOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={this.state.requestOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+                {this.state.search.map( user => (
+                    <ListItem button key={user.username} onClick={() => this.acceptRequest(user)}>
+                        <ListItemIcon><AddCircle/></ListItemIcon>
+                        <ListItemText inset primary={user.username}/>
+                    </ListItem>
+                ))}
             </List>
           </Collapse>
         </List>
