@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import InstanceCard from '../InstanceCard/InstanceCard';
-
+import FriendSearch from '../FriendSearch/FriendSearch';
+import './InstancePage.css';
 
 class InstancePage extends Component {
 
@@ -18,6 +19,9 @@ class InstancePage extends Component {
                         <InstanceCard game={game} />
                     </div>
                 ))}
+                <div id="addPlayers">
+                    <FriendSearch />
+                </div>
             </div>
         );
     }
