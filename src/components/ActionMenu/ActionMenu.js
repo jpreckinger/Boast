@@ -17,6 +17,14 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import './ActionMenu.css';
 import AddCircle from '@material-ui/icons/AddCircle';
+import RemoveCircle from '@material-ui/icons/RemoveCircle';
+import Mail from '@material-ui/icons/Mail';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
+
+
+//TODO: componentize this monstrous piece of garbage
 
 const styles = theme => ({
   root: {
@@ -34,7 +42,8 @@ class NestedList extends React.Component {
     open: false,
     requestOpen: false,
     search: [],
-    query: ''
+    query: '',
+    requests: []
   };
 
     handleClick = () => {
@@ -52,7 +61,7 @@ class NestedList extends React.Component {
                 this.setState({search: response.data})
             })
             .catch((error) => {
-                console.log('error searching for friends');
+                alert('error searching for friends');
             })
             this.setState({query: event.target.value})
         }
@@ -69,6 +78,62 @@ class NestedList extends React.Component {
              alert('Oops, something went wrong. Try again later.')
          })
      }
+
+    componentDidMount(){
+        this.getRequests();
+    }
+
+    getRequests = () => {
+        axios.get('/friends/requests')
+        .then((response) => {
+            this.setState({requests: response.data})
+        })
+        .catch((error) => {
+            alert('error getting friend requests');
+        })
+    }
+
+    handleRequest = (user) => {
+        confirmAlert({
+            title:`Friend request from: ${user.username}`,
+            message: 'Do want to accept this request?',
+            buttons: [
+                {
+                    label: 'Accept',
+                    onClick: () => this.acceptRequest(user),
+                },
+                {
+                    label: 'Decline',
+                    onClick: () => this.declineRequest(user)
+                },
+                {
+                    label: 'Decide Later'
+                }
+            ]
+        })
+    };
+
+    acceptRequest = (user) => {
+        axios.put(`/friends/${user.id}`)
+        .then(() => {
+            alert(`You are now friends with ${user.username}!`);
+            this.getRequests();
+        })  
+        .catch(() => {
+            alert(`Something went wrong, please try again later.`)
+        })
+    };
+
+    declineRequest = (user) => {
+        axios.delete(`/friends/${user.id}`)
+        .then(() => {
+            alert(`You will not be connected with ${user.username}.`);
+            this.getRequests();
+        })
+        .catch(() => {
+            alert(`Something went wrong, please try again later`)
+        })
+    }
 
   render() {
     const { classes } = this.props;
@@ -117,16 +182,16 @@ class NestedList extends React.Component {
           </Collapse>
           <ListItem button onClick={this.handleRequestClick}>
             <ListItemIcon>
-                <PersonAdd />
+                <Mail />
             </ListItemIcon>
             <ListItemText inset primary="Friend Requests" />
             {this.state.requestOpen ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={this.state.requestOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-                {this.state.search.map( user => (
-                    <ListItem button key={user.username} onClick={() => this.acceptRequest(user)}>
-                        <ListItemIcon><AddCircle/></ListItemIcon>
+                {this.state.requests.map( user => (
+                    <ListItem button key={user.username} onClick={() => this.handleRequest(user)}>
+                        <ListItemIcon><AddCircle/><RemoveCircle/></ListItemIcon>
                         <ListItemText inset primary={user.username}/>
                     </ListItem>
                 ))}
