@@ -21,6 +21,7 @@ import RemoveCircle from '@material-ui/icons/RemoveCircle';
 import Mail from '@material-ui/icons/Mail';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import AttachMoney from '@material-ui/icons/AttachMoney';
 
 
 
@@ -146,7 +147,7 @@ class NestedList extends React.Component {
         >
           <ListItem button>
             <ListItemIcon>
-              <SendIcon />
+              <AttachMoney />
             </ListItemIcon>
             <ListItemText inset primary="Make Wager" />
           </ListItem>
