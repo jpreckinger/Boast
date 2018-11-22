@@ -20,7 +20,9 @@ class UserPage extends Component {
             <div id="playThis">
               <button onClick={this.newGameClick}>Start New Game</button>
             </div>
-            <ActionMenu />
+            <div id="actionMenu">
+              <ActionMenu />
+            </div>
           </div>
         );
     }

@@ -3,10 +3,8 @@ const pool = require('../modules/pool');
 const router = express.Router();
 
 router.get('/requests', (req,res) => {
-    console.log('IN FRIEND ROUTER');
     const user = req.user.id;
-    console.log(user);
-    const sqlText = `SELECT users.username FROM friends 
+    const sqlText = `SELECT users.username, users.id FROM friends 
                     JOIN users ON users.id = friends.user_id
                     WHERE connected_user_id=$1 AND connected = false;`;
     pool.query(sqlText, [user])
@@ -46,5 +44,33 @@ router.post('/', (req, res) => {
         res.sendStatus(500);
     })
 });
+
+router.put('/:id', (req,res) => {
+    const friendId = req.params.id;
+    const userId = req.user.id;
+    const sqlText = `UPDATE friends SET connected = true
+                    WHERE user_id = $1 AND connected_user_id = $2;`;
+    pool.query(sqlText, [friendId, userId])
+    .then(() => {
+        res.sendStatus(200);
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+});
+
+router.delete('/:id', (req, res) => {
+    const friendId = req.params.id;
+    const userId = req.user.id;
+    const sqlText = `DELETE FROM friends
+                    WHERE user_id = $1 AND connected_user_id = $2;`;
+    pool.query(sqlText, [friendId, userId])
+    .then(() => {
+        res.sendStatus(200);
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+})
 
 module.exports = router;
