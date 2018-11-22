@@ -2,6 +2,21 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
+router.get('/requests', (req,res) => {
+    console.log('IN FRIEND ROUTER');
+    const user = req.user.id;
+    console.log(user);
+    const sqlText = `SELECT users.username FROM friends 
+                    JOIN users ON users.id = friends.user_id
+                    WHERE connected_user_id=$1 AND connected = false;`;
+    pool.query(sqlText, [user])
+    .then((result) => {
+        res.send(result.rows);
+    })
+    .catch((error) => {
+        res.sendStatus(500);
+    })
+});
 
 router.get('/:name', (req, res) => {
     const nameToSearch =  req.params.name ;
@@ -21,7 +36,6 @@ router.get('/:name', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-    console.log('user', req.user.id, 'friend', req.body.data);
     const requestedFriend = req.body.data;
     const sqlText = `INSERT INTO friends (user_id, connected_user_id) VALUES ($1, $2);`;
     pool.query(sqlText, [req.user.id, requestedFriend])

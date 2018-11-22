@@ -34,7 +34,8 @@ class NestedList extends React.Component {
     open: false,
     requestOpen: false,
     search: [],
-    query: ''
+    query: '',
+    requests: []
   };
 
     handleClick = () => {
@@ -69,6 +70,17 @@ class NestedList extends React.Component {
              alert('Oops, something went wrong. Try again later.')
          })
      }
+
+    componentDidMount(){
+        console.log('in getRequests');
+        axios.get('/friends/requests')
+        .then((response) => {
+            this.setState({requests: response.data})
+        })
+        .catch((error) => {
+            console.log('error getting friend requests');
+        })
+    }
 
   render() {
     const { classes } = this.props;
@@ -124,7 +136,7 @@ class NestedList extends React.Component {
           </ListItem>
           <Collapse in={this.state.requestOpen} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-                {this.state.search.map( user => (
+                {this.state.requests.map( user => (
                     <ListItem button key={user.username} onClick={() => this.acceptRequest(user)}>
                         <ListItemIcon><AddCircle/></ListItemIcon>
                         <ListItemText inset primary={user.username}/>
