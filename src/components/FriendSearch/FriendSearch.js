@@ -27,7 +27,7 @@ const styles = theme => ({
   },
 });
 
-class NestedList extends React.Component {
+class FriendSearch extends React.Component {
   state = {
     search: [],
     query: '',
@@ -45,7 +45,16 @@ class NestedList extends React.Component {
             this.setState({query: event.target.value})
         }
         this.setState({query: event.target.value, search: []})
-     }
+    }
+
+    addToInstance = (user) => {
+        this.props.dispatch({type: 'SET_PLAYERS', payload: user});
+        this.setState({
+            search: [],
+            query: ''
+        })
+    }
+    
 
   render() {
     const { classes } = this.props;
@@ -72,10 +81,9 @@ class NestedList extends React.Component {
   }
 }
 
-NestedList.propTypes = {
+FriendSearch.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({liveSearchFriends}) => ({liveSearchFriends});
 
-export default withStyles(styles)(connect(mapStateToProps)(NestedList));
+export default withStyles(styles)(connect()(FriendSearch));
