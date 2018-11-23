@@ -19,10 +19,16 @@ router.post('/', (req,res) => {
                     newGame = [...newGame, { ...result.items[i], image_url: gameData.image}]
                 ))      
         })
+        .catch(() => {
+            console.log('error');
+        })
         .then(function () {
             res.send({
                 newGame    
             })
+        })
+        .catch(()=> {
+            console.log('error');
         })
     })
     .catch( (error) => {

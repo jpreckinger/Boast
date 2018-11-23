@@ -23,16 +23,17 @@ const styles = theme => ({
 
 class ActivePlayers extends React.Component { 
 
+    componentDidMount() {
+        this.props.dispatch({type: 'SET_PLAYERS', payload: this.props.state.user })
+    }
+
   render() {
     const { classes } = this.props;
 
     return (
       <div className={classes.root}>
         <List component="nav">
-            <ListItem>
-                <ListItemText inset primary={req.user.id}/>
-            </ListItem>
-            {this.props.setPlayers.map( user => (
+            {this.props.state.setPlayers.map( user => (
                 <ListItem key={user.username} >
                     <ListItemText inset primary={user.username}/>
                 </ListItem>
@@ -47,6 +48,6 @@ ActivePlayers.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({setPlayers}) => ({setPlayers});
+const mapStateToProps = state => ({state});
 
 export default withStyles(styles)(connect(mapStateToProps)(ActivePlayers));
