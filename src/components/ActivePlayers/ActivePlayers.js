@@ -23,10 +23,6 @@ const styles = theme => ({
 
 class ActivePlayers extends React.Component { 
 
-    componentDidMount() {
-        this.props.dispatch({type: 'SET_PLAYERS', payload: this.props.state.user })
-    }
-
   render() {
     const { classes } = this.props;
 

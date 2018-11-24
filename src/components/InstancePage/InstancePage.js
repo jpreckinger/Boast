@@ -4,23 +4,28 @@ import InstanceCard from '../InstanceCard/InstanceCard';
 import FriendSearch from '../FriendSearch/FriendSearch';
 import './InstancePage.css';
 import ActivePlayers from '../ActivePlayers/ActivePlayers';
+import axios from 'axios';
 
 class InstancePage extends Component {
 
+    
+
     startGameClick = () => {
-        this.props.history.push('/results');
+        axios.post('/instance', {data: this.props.state.prepareInstance.id});
+        axios.post('/stats', {data: this.props.state.setPlayers});
+        // this.props.history.push('/results');
     }
 
     render() {
         return (
             <div className="instancePage">   
-                <button onClick={this.startGameClick}>Start Game</button>
-                {this.props.prepareInstance.map( (game, index) => (
+                {this.props.state.prepareInstance.map( (game, index) => (
                     <div key={index} id="instanceCard">
                         <InstanceCard game={game} />
                     </div>
                 ))}
                 <div id="addPlayers">
+                    <button onClick={this.startGameClick}>Start Game</button>
                     <FriendSearch />
                 </div>
                 <div id="activePlayers">
@@ -35,7 +40,7 @@ class InstancePage extends Component {
 // Instead of taking everything from state, we just want the error messages.
 // if you wanted you could write this code like this:
 // const mapStateToProps = ({errors}) => ({ errors });
-const mapStateToProps = ({prepareInstance}) => ({prepareInstance});
+const mapStateToProps = state => ({state});
 
 export default connect(mapStateToProps)(InstancePage);
 
