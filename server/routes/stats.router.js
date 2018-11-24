@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-    console.log('stats req.body is ', req.body);
     const sqlText = `INSERT INTO stats (user_id, instance_id) VALUES ($1, $2);`;
     const instance = req.body.instance[0].id; 
     pool.query(sqlText, [req.body.players.id, instance])
@@ -24,5 +23,21 @@ router.post('/', (req, res) => {
         console.log('error adding user to stats');
     })
 });
+
+router.put('/:id', (req,res) => {
+    console.log('req.params is ', req.params.id);
+    console.log('req.body is ', req.body);
+    const sqlText = `UPDATE stats SET (score, victory) = ($1, $2)
+                    WHERE instance_id = $3 AND user_id = $4;`;
+    const instance_id = req.params.id;
+    const user = req.body;
+    pool.query(sqlText, [user.score, user.winner, instance_id, user.user.id])
+    .then(() => {
+        res.sendStatus(200);
+    })
+    .catch(()=> {
+        res.sendStatus(500);
+    })
+})
 
 module.exports = router;

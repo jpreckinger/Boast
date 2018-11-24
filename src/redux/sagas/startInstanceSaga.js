@@ -1,4 +1,4 @@
-import { takeLatest, call } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* setInstance(action) {
@@ -9,6 +9,7 @@ function* setInstance(action) {
         for(let player of action.payload.players){
             yield call(axios.post, '/stats', { players: player, instance: response.data});
         }
+        yield put({type: 'STORE_INSTANCE_ID', payload: response.data[0]})
     }
     catch (error) {
         console.log('error adding user to instance');

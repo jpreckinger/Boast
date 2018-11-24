@@ -12,7 +12,7 @@
     justify-content: flex-end;
 } */
 
-.instancePage{
+.fullPage{
     display: flex;
     justify-content: space-around;
 }

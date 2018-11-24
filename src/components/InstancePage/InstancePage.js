@@ -22,7 +22,7 @@ class InstancePage extends Component {
 
     render() {
         return (
-            <div className="instancePage">   
+            <div className="fullPage">   
                 {this.props.state.prepareInstance.map( (game, index) => (
                     <div key={index} id="instanceCard">
                         <InstanceCard game={game} />
