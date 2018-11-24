@@ -14,6 +14,7 @@ class AddGame extends Component {
         this.props.history.push('/playgame');
         console.log('payload',game);
         this.props.dispatch({type: 'ADD_NEW_GAME', payload: game})
+        this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.reduxState.user})
     }
 
     customGameClick = () => {

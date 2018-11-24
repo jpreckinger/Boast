@@ -16,6 +16,21 @@ router.get('/requests', (req,res) => {
     })
 });
 
+router.get('/instance/:name', (req,res) => {
+    const nameToSearch =  req.params.name ;
+    const sqlText = `SELECT users.username, users.id FROM users 
+                    JOIN friends ON friends.connected_user_id = users.id
+                    WHERE friends.user_id = ($1) AND lower(users.username) SIMILAR TO ($2)`;
+    pool.query(sqlText, [req.user.id, nameToSearch + '%'])
+    .then((result) => {
+        res.send(result.rows)
+    })
+    .catch((error) => {
+        console.log('error live searching friends', error);
+        res.sendStatus(500);
+    })
+})
+
 router.get('/:name', (req, res) => {
     const nameToSearch =  req.params.name ;
     const sqlText = `SELECT username, id FROM users
@@ -36,6 +51,19 @@ router.get('/:name', (req, res) => {
 router.post('/', (req, res) => {
     const requestedFriend = req.body.data;
     const sqlText = `INSERT INTO friends (user_id, connected_user_id) VALUES ($1, $2);`;
+    pool.query(sqlText, [req.user.id, requestedFriend])
+    .then(() => {
+        res.sendStatus(201);
+    })
+    .catch(()=> {
+        res.sendStatus(500);
+    })
+});
+
+router.post('/requests', (req, res) => {
+    console.log('in friend add post');
+    const requestedFriend = req.body.data;
+    const sqlText = `INSERT INTO friends (user_id, connected_user_id, connected) VALUES ($1, $2, true);`;
     pool.query(sqlText, [req.user.id, requestedFriend])
     .then(() => {
         res.sendStatus(201);

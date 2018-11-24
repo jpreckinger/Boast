@@ -117,7 +117,13 @@ class NestedList extends React.Component {
     acceptRequest = (user) => {
         axios.put(`/friends/${user.id}`)
         .then(() => {
-            alert(`You are now friends with ${user.username}!`);
+            axios.post('/friends/requests', {data: user.id})
+            .then(() => {
+                alert(`You are now friends with ${user.username}!`);
+            })
+            .catch(() => {
+                alert(`Something went wrong, please try again later.`);
+            })
             this.getRequests();
         })  
         .catch(() => {
@@ -183,7 +189,7 @@ class NestedList extends React.Component {
           </Collapse>
           <ListItem button onClick={this.handleRequestClick}>
             <ListItemIcon>
-                <Mail />
+                <Mail/>
             </ListItemIcon>
             <ListItemText inset primary="Friend Requests" />
             {this.state.requestOpen ? <ExpandLess /> : <ExpandMore />}
@@ -192,7 +198,8 @@ class NestedList extends React.Component {
             <List component="div" disablePadding>
                 {this.state.requests.map( user => (
                     <ListItem button key={user.username} onClick={() => this.handleRequest(user)}>
-                        <ListItemIcon><AddCircle/><RemoveCircle/></ListItemIcon>
+                        <ListItemIcon><AddCircle/></ListItemIcon>
+                        <ListItemIcon><RemoveCircle/></ListItemIcon>
                         <ListItemText inset primary={user.username}/>
                     </ListItem>
                 ))}

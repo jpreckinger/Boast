@@ -1,0 +1,18 @@
+/* #instancePage{
+    display: flex;
+}
+
+#addPlayers{
+    display: flex;
+    justify-content: center;
+}
+
+#activePlayers{
+    display: flex;
+    justify-content: flex-end;
+} */
+
+.instancePage{
+    display: flex;
+    justify-content: space-around;
+}

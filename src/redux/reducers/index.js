@@ -4,6 +4,7 @@ import loginMode from './loginModeReducer';
 import user from './userReducer';
 import displayGamesSearch from './displayGamesSearchReducer';
 import prepareInstance from './prepareInstanceReducer';
+import setPlayers from './setPlayersReducers';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   displayGamesSearch,
   prepareInstance,
+  setPlayers,
 });
 
 export default rootReducer;
