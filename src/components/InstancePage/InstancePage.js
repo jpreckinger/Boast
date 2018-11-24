@@ -17,9 +17,7 @@ class InstancePage extends Component {
                 players: this.props.state.setPlayers
             }
         })
-        // axios.post('/instance', {data: this.props.state.prepareInstance.id});
-        // axios.post('/stats', {data: this.props.state.setPlayers});
-        // this.props.history.push('/results');
+        this.props.history.push('/results');
     }
 
     render() {

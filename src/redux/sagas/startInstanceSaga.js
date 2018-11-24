@@ -6,7 +6,9 @@ function* setInstance(action) {
         yield call(axios.post, '/instance',  action.payload.game);
         const response = yield call (axios.get, '/instance');
         console.log(response);
-        yield call(axios.post, '/stats', { players: action.payload.players, instance: response.data});
+        for(let player of action.payload.players){
+            yield call(axios.post, '/stats', { players: player, instance: response.data});
+        }
     }
     catch (error) {
         console.log('error adding user to instance');
