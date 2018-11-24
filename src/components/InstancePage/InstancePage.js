@@ -4,15 +4,21 @@ import InstanceCard from '../InstanceCard/InstanceCard';
 import FriendSearch from '../FriendSearch/FriendSearch';
 import './InstancePage.css';
 import ActivePlayers from '../ActivePlayers/ActivePlayers';
-import axios from 'axios';
 
 class InstancePage extends Component {
 
     
 
     startGameClick = () => {
-        axios.post('/instance', {data: this.props.state.prepareInstance.id});
-        axios.post('/stats', {data: this.props.state.setPlayers});
+        this.props.dispatch({
+            type: 'SET_INSTANCE',
+            payload: {
+                game: this.props.state.prepareInstance[0],
+                players: this.props.state.setPlayers
+            }
+        })
+        // axios.post('/instance', {data: this.props.state.prepareInstance.id});
+        // axios.post('/stats', {data: this.props.state.setPlayers});
         // this.props.history.push('/results');
     }
 

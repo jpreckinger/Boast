@@ -6,6 +6,7 @@ import getGamesSaga from './getGamesSaga';
 import addGameSaga from './addGameSaga';
 import perpareNewInstanceSaga from './prepareNewInstanceSaga';
 import playCurrentUserSaga from './setUserPlayerSaga';
+import startInstanceSaga from './startInstanceSaga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,5 +24,6 @@ export default function* rootSaga() {
     addGameSaga(),
     perpareNewInstanceSaga(),
     playCurrentUserSaga(),
+    startInstanceSaga(),
   ]);
 }

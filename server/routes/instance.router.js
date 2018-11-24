@@ -6,16 +6,26 @@ const router = express.Router();
  * GET route template
  */
 router.get('/', (req, res) => {
-    
+    const sqlText = `SELECT instances.id FROM instances
+                    JOIN games ON games.id = instances.game_id
+                    WHERE games.user_id = $1 
+                    ORDER BY instances.id DESC LIMIT 1;`;
+    const user = req.user.id;
+    pool.query(sqlText, [user])
+    .then((result) => {
+        res.send(result.rows);
+    })
+    .catch(() => {
+        console.log('error getting instance id');
+    })
 });
 
 /**
  * POST route template
  */
 router.post('/', (req, res) => {
-    console.log('instance req.body is ', req.body);
     const sqlText = `INSERT INTO instances (game_id) VALUES ($1)`;
-    const game = req.body.data;
+    const game = req.body.id;
     pool.query(sqlText, [game])
     .then(() => {
         res.sendStatus(200);
