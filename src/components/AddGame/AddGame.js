@@ -38,7 +38,6 @@ class AddGame extends Component {
         return (
         <div>
             <div>
-                <button onClick={this.addGameClick}>Add Game</button>
                 <button onClick={this.customGameClick}>Custom Game</button>
             </div>
             <div>

@@ -6,6 +6,7 @@ import displayGamesSearch from './displayGamesSearchReducer';
 import prepareInstance from './prepareInstanceReducer';
 import setPlayers from './setPlayersReducers';
 import currentInstanceId from './currentInstanceReducer';
+import previousStats from './previousStatsReducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   prepareInstance,
   setPlayers,
   currentInstanceId,
+  previousStats,
 });
 
 export default rootReducer;

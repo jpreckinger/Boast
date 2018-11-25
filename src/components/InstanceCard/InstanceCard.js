@@ -6,6 +6,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
+import {connect} from 'react-redux';
 
 const styles = {
   card: {
@@ -23,15 +24,15 @@ function ImgMediaCard(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          alt={props.game.game_name}
+          alt={props.state.prepareInstance.game_name}
           className={classes.media}
           height="auto"
-          image={props.game.game_image}
-          title={props.game.game_name}
+          image={props.state.prepareInstance.game_image}
+          title={props.state.prepareInstance.game_name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.game.game_name}
+            {props.state.prepareInstance.game_name}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -43,4 +44,6 @@ ImgMediaCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ImgMediaCard);
+const mapStateToProps = state => ({state});
+
+export default withStyles(styles)(connect(mapStateToProps)(ImgMediaCard));

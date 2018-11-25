@@ -24,9 +24,9 @@ router.get('/', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-    const sqlText = `INSERT INTO instances (game_id) VALUES ($1)`;
+    const sqlText = `INSERT INTO instances (primary_user_id, game_id) VALUES ($1, $2)`;
     const game = req.body.id;
-    pool.query(sqlText, [game])
+    pool.query(sqlText, [req.user.id, game])
     .then(() => {
         res.sendStatus(200);
     })
