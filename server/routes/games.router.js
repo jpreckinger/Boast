@@ -19,7 +19,7 @@ router.get('/current', (req, res) => {
     .catch(() => {
         console.log('error getting current game');
     })
-})
+});
 
 router.get('/:name', (req, res) => {
     const sqlText = `SELECT game_name, game_image, id FROM games

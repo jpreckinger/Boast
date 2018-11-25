@@ -25,8 +25,6 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req,res) => {
-    console.log('req.params is ', req.params.id);
-    console.log('req.body is ', req.body);
     const sqlText = `UPDATE stats SET (score, victory) = ($1, $2)
                     WHERE instance_id = $3 AND user_id = $4;`;
     const instance_id = req.params.id;

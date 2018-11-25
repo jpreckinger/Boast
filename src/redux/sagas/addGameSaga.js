@@ -6,7 +6,7 @@ function* addNewGame(action) {
     try{
         yield call(axios.post, '/myGames', {data: action.payload} );
         const response = yield call(axios.get, `/myGames/${action.payload.name}`);
-        yield call(axios.post, '/instance',  response.data[0]);
+        yield put({type: 'CREATE_NEW_INSTANCE', payload: response.data[0]});
         yield put({ type: 'FETCH_CURRENT_GAME'});
     }
     catch (error) {

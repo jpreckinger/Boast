@@ -4,8 +4,17 @@ import InstanceCard from '../InstanceCard/InstanceCard';
 
 class GamePage extends Component {
 
+    state = {
+        previous: [],
+    }
+
     playGameClick = () => {
-        this.props.history.push('/playgame')
+        this.props.history.push('/playgame');
+        this.props.dispatch({type: 'CREATE_NEW_INSTANCE', payload: this.props.state.prepareInstance})
+    }
+
+    componentDidMount() {
+        this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id})
     }
 
     render() {
@@ -19,7 +28,11 @@ class GamePage extends Component {
                 </div>
                 <div id="activePlayers">
                     <h2>Previous Results:</h2>
-
+                    {this.state.previous.map( instance => (
+                        <div>
+                            
+                        </div>
+                    ))}
                 </div>
             </div>
         );
