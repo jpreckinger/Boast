@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import InstanceCard from '../InstanceCard/InstanceCard';
-import '../InstancePage/InstancePage.css';
 import EnterScores from '../EnterScores/EnterScores';
 import List from '@material-ui/core/List';
 
@@ -16,11 +15,9 @@ class ResultsPage extends Component {
     render() {
         return (
             <div className="fullPage">   
-                {this.props.state.prepareInstance.map( (game, index) => (
-                    <div key={index} id="instanceCard">
-                        <InstanceCard game={game} />
-                    </div>
-                ))}
+                <div id="instanceCard">
+                    <InstanceCard />
+                </div>
                 <div>
                     <button onClick={this.saveResultsClick}>Save Results</button>
                 </div>

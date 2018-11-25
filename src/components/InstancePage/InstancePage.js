@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import InstanceCard from '../InstanceCard/InstanceCard';
 import FriendSearch from '../FriendSearch/FriendSearch';
-import './InstancePage.css';
 import ActivePlayers from '../ActivePlayers/ActivePlayers';
 
 class InstancePage extends Component {
@@ -13,7 +12,6 @@ class InstancePage extends Component {
         this.props.dispatch({
             type: 'SET_INSTANCE',
             payload: {
-                game: this.props.state.prepareInstance[0],
                 players: this.props.state.setPlayers
             }
         })
@@ -23,11 +21,9 @@ class InstancePage extends Component {
     render() {
         return (
             <div className="fullPage">   
-                {this.props.state.prepareInstance.map( (game, index) => (
-                    <div key={index} id="instanceCard">
-                        <InstanceCard game={game} />
-                    </div>
-                ))}
+                <div id="instanceCard">
+                    <InstanceCard />
+                </div>
                 <div id="addPlayers">
                     <button onClick={this.startGameClick}>Start Game</button>
                     <FriendSearch />

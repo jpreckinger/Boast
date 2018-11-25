@@ -1,4 +1,4 @@
-const prepareInstance = (state = [], action) => {
+const prepareInstance = (state = {}, action) => {
     switch (action.type) {
       case 'DISPLAY_CURRENT_GAME':
         return  action.payload;
