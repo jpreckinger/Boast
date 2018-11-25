@@ -43,7 +43,6 @@ class EnterScores extends React.Component {
     }
 
     componentWillUnmount() {
-        console.log(this.props.state.currentInstanceId.id);
         axios.put(`/stats/${this.props.state.currentInstanceId.id}`, this.state);    
     }
 

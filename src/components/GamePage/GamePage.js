@@ -9,9 +9,9 @@ class GamePage extends Component {
         this.props.dispatch({type: 'CREATE_NEW_INSTANCE', payload: this.props.state.prepareInstance})
     }
 
-    componentDidMount() {
-        this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id})
-    }
+    // componentWillReceiveProps() {
+    //     this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id})
+    // }
 
     render() {
         return (
@@ -40,15 +40,7 @@ class GamePage extends Component {
     }
 }
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({state});
-
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
-
 
 export default connect(mapStateToProps)(GamePage);
 
