@@ -24,8 +24,8 @@ import './App.css';
 
 class App extends Component {
   componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
-    this.props.dispatch({type: 'FETCH_CURRENT_GAME'})
+    this.props.dispatch({type: 'FETCH_USER'});
+    this.props.dispatch({type: 'FETCH_CURRENT_GAME'});
   }
 
   render() {

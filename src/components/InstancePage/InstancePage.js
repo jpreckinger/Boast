@@ -6,7 +6,12 @@ import ActivePlayers from '../ActivePlayers/ActivePlayers';
 
 class InstancePage extends Component {
 
-    
+    // componentDidMount() {
+    //     if(this.props.state.setPlayers !== []){
+    //         this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.state.user})
+    //     }
+    //     console.log(this.props.state.setPlayers);
+    // }
 
     startGameClick = () => {
         this.props.dispatch({

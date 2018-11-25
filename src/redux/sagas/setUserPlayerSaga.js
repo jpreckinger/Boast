@@ -1,6 +1,7 @@
 import { takeLatest, put } from 'redux-saga/effects';
 
 function* addUserToGame(action) {
+    console.log('in set user');
     try{
         yield put({ type: 'RESET_PLAYERS'})
         yield put({ type: 'SET_PLAYERS', payload: action.payload})

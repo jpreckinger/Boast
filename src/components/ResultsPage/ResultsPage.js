@@ -6,7 +6,11 @@ import List from '@material-ui/core/List';
 
 class ResultsPage extends Component {
 
-    
+    // componentDidMount() {
+    //     if(this.props.state.setPlayers === []){
+    //         this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.state.user})
+    //     }
+    // }
 
     saveResultsClick = () => {
         this.props.history.push('/gamepage');

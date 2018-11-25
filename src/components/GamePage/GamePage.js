@@ -9,9 +9,9 @@ class GamePage extends Component {
         this.props.dispatch({type: 'CREATE_NEW_INSTANCE', payload: this.props.state.prepareInstance})
     }
 
-    // componentWillReceiveProps() {
-    //     this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id})
-    // }
+    componentDidMount() {
+        this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id})
+    }
 
     render() {
         return (
