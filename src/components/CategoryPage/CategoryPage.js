@@ -30,7 +30,7 @@ class CategoryPage extends Component {
         .catch(() => {
             console.log('error getting categories');
         })
-        this.props.dispatch({type: 'GET_DATA', payload: 1})
+        this.props.dispatch({type: 'GET_CATEGORY_DATA', payload: 1})
     }
 
     getRequestedGames = (event) => {
@@ -44,7 +44,7 @@ class CategoryPage extends Component {
         .catch(() => {
             console.log('error getting all games');
         })
-        this.props.dispatch({type: 'GET_DATA', payload: event.target.value})
+        this.props.dispatch({type: 'GET_CATEGORY_DATA', payload: event.target.value})
     }
 
     displayGameClick = (game) => {

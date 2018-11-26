@@ -14,10 +14,12 @@ function* getStats(action) {
             let noteLine = yield call(axios.get, `/previous/notes/${instance_id.id}`);
             previousStats.notes =  [...previousStats.notes, noteLine.data[0]];
         };
+        yield put({type: 'GET_GAME_DATA', payload: action.payload}); 
         yield put({type: 'SET_PREVIOUS_STATS', payload: {
             stats: previousStats.stats, 
             notes: previousStats.notes
-        }})        
+        }});
+               
     }
     catch (error) {
         console.log('error getting 3');
