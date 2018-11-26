@@ -17,6 +17,7 @@ const instanceRouter = require('./routes/instance.router');
 const statsRouter = require('./routes/stats.router');
 const previousRouter = require('./routes/previous.router');
 const categoryRouter = require('./routes/category.router');
+const existingGamesRouter = require('./routes/existingGames.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -38,6 +39,7 @@ app.use('/instance', instanceRouter);
 app.use('/stats', statsRouter);
 app.use('/previous', previousRouter);
 app.use('/category', categoryRouter);
+app.use('/existingGames', existingGamesRouter);
 
 // Serve static files
 app.use(express.static('build'));

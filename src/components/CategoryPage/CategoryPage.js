@@ -9,14 +9,6 @@ class CategoryPage extends Component {
         games: [],
     }
 
-    playGameClick = () => {
-        this.props.history.push('/playgame')
-    }
-
-    viewGameClick = () => {
-        this.props.history.push('/gamepage')
-    }
-
     componentDidMount() {
         axios.get(`/category/all/1`)
         .then((response) => {
@@ -41,8 +33,8 @@ class CategoryPage extends Component {
         })
     }
 
-    playGameClick = (game) => {
-        this.props.history.push('/playgame');
+    displayGameClick = (game) => {
+        this.props.history.push('/gamepage');
         console.log('payload',game);
         this.props.dispatch({type: 'SELECT_GAME', payload: game});
         this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.state.user});
@@ -51,13 +43,9 @@ class CategoryPage extends Component {
     render() {
         return (
             <div>
-                <div>
-                    <button onClick={this.playGameClick}>Play This</button>
-                    <button onClick={this.viewGameClick}>Check this out</button>
-                </div>
                 <div className="gameList">
                     {this.state.games.map( game => (
-                        <div key={game.id} onClick={() => this.playGameClick(game)}>
+                        <div key={game.id} onClick={() => this.displayGameClick(game)}>
                             <AddGameCards game={game} />
                         </div>
                     ))}
