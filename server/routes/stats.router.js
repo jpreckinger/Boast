@@ -5,8 +5,38 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get('/', (req, res) => {
-    
+router.get('/all', (req, res) => {
+    const sqlText = `SELECT SUM(victory::int) as wins, 
+                    (COUNT(victory)) - (SUM(victory::int)) as losses 
+                    FROM stats
+                    WHERE user_id = $1;`;
+    const user = req.user.id;
+    pool.query(sqlText, [user]) 
+    .then((result) => {
+        res.send(result.rows)
+    })  
+    .catch(() => {
+        res.sendStatus(500);
+    })
+});
+
+router.get('/category/:id', (req,res) => {
+    console.log(req.params.id);
+    const sqlText = `SELECT SUM(victory::int) as wins, 
+                    (COUNT(victory)) - (SUM(victory::int)) as losses 
+                    FROM stats
+                    JOIN instances ON instances.id = stats.instance_id
+                    JOIN games ON instances.game_id = games.id
+                    WHERE stats.user_id = $1 AND games.category_id = $2;`;
+    const user = req.user.id;
+    const category = req.params.id;
+    pool.query(sqlText, [user, category])
+    .then((result) => {
+        res.send(result.rows);
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
 });
 
 /**
