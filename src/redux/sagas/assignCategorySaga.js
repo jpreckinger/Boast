@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { takeLatest, call } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* handleCategory(action) {

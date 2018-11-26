@@ -34,6 +34,17 @@ router.get('/check/:category', (req,res) => {
     })
 });
 
+router.get('/list', (req,res) => {
+    console.log('in category list');
+    pool.query( `SELECT * FROM categories;`)
+    .then((result) => {
+        res.send(result.rows);
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+})
+
 /**
  * POST route template
  */

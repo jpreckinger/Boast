@@ -7,6 +7,7 @@ class CategoryPage extends Component {
 
     state = {
         games: [],
+        categories: []
     }
 
     componentDidMount() {
@@ -19,13 +20,23 @@ class CategoryPage extends Component {
         .catch(() => {
             console.log('error getting all games');
         })
-    }
-
-    getRequestedGames = () => {
-        axios.get(`/category/all/${this.state.category}`)
+        axios.get('/category/list')
         .then((response) => {
             this.setState({
-                game: response.data
+                categories: response.data
+            })
+        })
+        .catch(() => {
+            console.log('error getting categories');
+        })
+    }
+
+    getRequestedGames = (event) => {
+        console.log('in get games');
+        axios.get(`/category/all/${event.target.value}`)
+        .then((response) => {
+            this.setState({
+                games: response.data
             })
         })
         .catch(() => {
@@ -43,6 +54,15 @@ class CategoryPage extends Component {
     render() {
         return (
             <div>
+                <div>
+                    <select onChange={this.getRequestedGames}>
+                        {this.state.categories.map( category => (
+                            <option key={category.id} value={category.id}>
+                                {category.category_name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
                 <div className="gameList">
                     {this.state.games.map( game => (
                         <div key={game.id} onClick={() => this.displayGameClick(game)}>
