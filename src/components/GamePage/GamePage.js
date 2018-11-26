@@ -1,8 +1,29 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import InstanceCard from '../InstanceCard/InstanceCard';
+import Input from '@material-ui/core/Input';
 
 class GamePage extends Component {
+
+    state = {
+        category: ''
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            category: event.target.value
+        })
+    }
+
+    submitCategory = (event) => {
+        event.preventDefault();
+        this.props.dispatch({type: 'ASSIGN_CATEGORY', payload: {
+            category: this.state.category,
+            game: this.props.state.prepareInstance.id
+            }
+        });
+        this.setState({category: ''})
+    }
 
     playGameClick = () => {
         this.props.history.push('/playgame');
@@ -21,6 +42,10 @@ class GamePage extends Component {
                 </div>
                 <div>
                     <button onClick={this.playGameClick}>Play Now</button>
+                    <form id="setCategory" onSubmit={this.submitCategory}>
+                        <Input onChange={this.handleChange} type="text" 
+                        placeholder="Assign Category" value={this.state.category}/>
+                    </form>
                 </div>
                 <div id="activePlayers">
                     <h2>Previous Results:</h2>
