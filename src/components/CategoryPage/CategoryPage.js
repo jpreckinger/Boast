@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import AddGameCards from '../AddGameCards/AddGameCards';
 import axios from 'axios';
+import DataChart from '../DataChart/DataChart';
 
 class CategoryPage extends Component {
 
     state = {
         games: [],
-        categories: []
+        categories: [],
     }
 
     componentDidMount() {
@@ -29,6 +30,7 @@ class CategoryPage extends Component {
         .catch(() => {
             console.log('error getting categories');
         })
+        this.props.dispatch({type: 'GET_CATEGORY_DATA', payload: 1})
     }
 
     getRequestedGames = (event) => {
@@ -42,6 +44,7 @@ class CategoryPage extends Component {
         .catch(() => {
             console.log('error getting all games');
         })
+        this.props.dispatch({type: 'GET_CATEGORY_DATA', payload: event.target.value})
     }
 
     displayGameClick = (game) => {
@@ -54,6 +57,9 @@ class CategoryPage extends Component {
     render() {
         return (
             <div>
+                <div>
+                    <DataChart />
+                </div>
                 <div>
                     <select onChange={this.getRequestedGames}>
                         {this.state.categories.map( category => (

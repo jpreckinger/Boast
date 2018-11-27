@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import InstanceCard from '../InstanceCard/InstanceCard';
 import Input from '@material-ui/core/Input';
+import DataChart from '../DataChart/DataChart';
 
 class GamePage extends Component {
 
@@ -31,12 +32,18 @@ class GamePage extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id})
+        if(this.props.state.prepareInstance.length < 1){
+            this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id});
+        }
     }
 
     render() {
         return (
-            <div className="fullPage">   
+            <div>
+            <div>
+                <DataChart />
+            </div>
+            <div className="fullPage">    
                 <div id="instanceCard">
                     <InstanceCard />
                 </div>
@@ -51,7 +58,7 @@ class GamePage extends Component {
                     <h2>Previous Results:</h2>
                     {this.props.state.previousStats.notes.map( (noteLine, index) => (
                         <div key={index}>
-                            {/* <h2>{noteLine.date_played}</h2> */}
+                            <h2>{noteLine.date_played}</h2>
                            {this.props.state.previousStats.stats[index].map( (statLine, i ) => (
                                <div key={i}>
                                     <h3>{statLine.username}{statLine.score}{statLine.victory}</h3>
@@ -60,6 +67,7 @@ class GamePage extends Component {
                         </div>
                     ))}
                 </div>
+            </div>
             </div>
         );
     }

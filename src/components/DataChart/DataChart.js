@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Doughnut } from 'react-chartjs-2';
+import Card from '@material-ui/core/Card';
 
 
-class Chart extends Component {
+
+class DataChart extends Component {
+
 
   render() {
     return (
+        // <Card className="chartCard">
         <div id="taco">
             <Doughnut
                 data={{
-                    labels: ['user1', 'user2', 'user3', 'user4', 'user5', 'user6'],
+                    labels: ['wins', 'losses'],
                     datasets: [
                         {
-                            label:'Pops',
+                        
                             data: [
-                            487555,
-                            349587,
-                            457389,
-                            45453,
-                            475394,
-                            435934
+                            this.props.state.getData.wins,
+                            this.props.state.getData.losses,
                         ],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.6)',
-                            'rgba(100, 99, 132, 0.6)',
-                            'rgba(213, 190, 132, 0.6)',
-                            'rgba(255, 300, 98, 0.6)',
-                            'rgba(25, 99, 132, 0.6)',
-                            'rgba(255, 99, 13, 0.6)',
+                            'green',
+                            'red',
+                            // 'rgba(213, 190, 132, 0.6)',
+                            // 'rgba(255, 300, 98, 0.6)',
+                            // 'rgba(25, 99, 132, 0.6)',
+                            // 'rgba(255, 99, 13, 0.6)',
                         ]
                     }
                 ]
@@ -38,19 +38,20 @@ class Chart extends Component {
             options={{
                 title:{
                     display:true,
-                    text: 'Test data',
+                    text: 'Are you even good?',
                     fontSize:25
                 },
                 legend:{
                     display:true,
-                    position: 'right'
+                    position: 'bottom'
                 }
             }}
         />
         </div>
+        // </Card>
     )}
 }
 
 const mapStateToProps = state => ({state});
 
-export default connect(mapReduxStateToProps)(Chart);
+export default connect(mapStateToProps)(DataChart);
