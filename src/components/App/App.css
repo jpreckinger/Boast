@@ -74,3 +74,8 @@ input {
     all: unset;
 }
 
+#barChart{
+    width: 50%;
+    height: 50%;
+}
+

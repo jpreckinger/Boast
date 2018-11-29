@@ -17,6 +17,7 @@ import Home from '@material-ui/icons/Home';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
 import Category from '@material-ui/icons/Category';
+import ActionMenu from '../ActionMenu/ActionMenu';
 
 
 const styles = theme => ({
@@ -92,12 +93,16 @@ const styles = theme => ({
 class PrimarySearchAppBar extends React.Component {
   state = {
     anchorEl: null,
-    mobileMoreAnchorEl: null,
+    anchorEl2: null
   };
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
+
+  handleActionMenuOpen = event => {
+    this.setState({ anchorEl2: event.currentTarget });
+  }
 
   logOut = () => {
       this.props.dispatch({type: 'LOGOUT'});
@@ -105,21 +110,18 @@ class PrimarySearchAppBar extends React.Component {
 
   handleMenuClose = () => {
     this.setState({ anchorEl: null });
-    this.handleMobileMenuClose();
   };
 
-  handleMobileMenuOpen = event => {
-    this.setState({ mobileMoreAnchorEl: event.currentTarget });
-  };
-
-  handleMobileMenuClose = () => {
-    this.setState({ mobileMoreAnchorEl: null });
-  };
+  handleMenuClose2 = () => {
+    this.setState({ anchorEl2: null})
+  }
 
   render() {
     const { anchorEl } = this.state;
     const { classes } = this.props;
     const isMenuOpen = Boolean(anchorEl);
+    const { anchorEl2 } = this.state;
+    const isMenuOpen2 = Boolean(anchorEl2);
 
     const renderMenu = (
       <Menu
@@ -133,11 +135,26 @@ class PrimarySearchAppBar extends React.Component {
       </Menu>
     );
 
+    const renderMenu2 = (
+      <Menu
+        anchorEl={anchorEl2}
+        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+        open={isMenuOpen2}
+        onClose={this.handleMenuClose2}
+      >
+        <ActionMenu />
+      </Menu>
+    );
+
     return (
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
+            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer"
+            aria-owns={isMenuOpen2 ? 'material-appbar' : undefined}
+            aria-haspopup="true"
+            onClick={this.handleActionMenuOpen}>
               <MenuIcon />
             </IconButton>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
@@ -178,6 +195,7 @@ class PrimarySearchAppBar extends React.Component {
             </div>
           </Toolbar>
         </AppBar>
+        {renderMenu2}
         {renderMenu}
       </div>
     );

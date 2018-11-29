@@ -5,6 +5,7 @@ import Input from '@material-ui/core/Input';
 import DataChart from '../DataChart/DataChart';
 import CategoryChart from '../DataChart/CategoryChart';
 import { Bar } from 'react-chartjs-2';
+import moment from 'moment';
 
 
 class GamePage extends Component {
@@ -53,11 +54,11 @@ class GamePage extends Component {
                         placeholder="Assign Category" value={this.state.category}/>
                     </form>
                  </div>
-                <div >
+                <div  id='barChart' >
                     {/* <h2>Previous Results:</h2> */}
                     {this.props.state.previousStats.notes.map( (noteLine, index) => (
                         <div key={index}>
-                            <div id='barChart' >
+                            <div >
                                 <Bar
                                     data={{
                                         labels: this.props.state.previousStats.users[index],
@@ -70,24 +71,25 @@ class GamePage extends Component {
                                         ]
                                     }}
                                     
-                                    width={320}
+                                    
                                 
                                     options={{
+                                        maintainAspectRatio: false,
                                         title:{
                                             display:true,
-                                            text: noteLine.date_played,
+                                            text: moment(noteLine.date_played).format('MMM Do YY'),
                                             fontSize:25
                                         },
                                         legend:{
                                             display:true,
                                             position: 'bottom'
                                         },
-                                        scales: {
-                                            xAxes: [{
-                                                barThickness : 15,
-                                            }]
-                                        },
-                                        maintainAspectRatio: true
+                                        // scales: {
+                                        //     xAxes: [{
+                                        //         barThickness : 15,
+                                        //     }]
+                                        // },
+                                        // maintainAspectRatio: false
                                     }}
                                 />
                             </div>

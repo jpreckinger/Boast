@@ -33,7 +33,7 @@ class DataChart extends Component {
                     }
                 ]
             }}
-            height={50}
+            height={100}
             
             options={{
                 title:{
@@ -43,7 +43,7 @@ class DataChart extends Component {
                 },
                 legend:{
                     display:true,
-                    position: 'right'
+                    position: 'bottom'
                 }
             }}
         />

@@ -150,10 +150,7 @@ class NestedList extends React.Component {
     return (
       <div className={classes.root}>
        <Paper>
-        <List
-          component="nav"
-          subheader={<ListSubheader component="div">Actions</ListSubheader>}
-        >
+        <List>
           <ListItem button>
             <ListItemIcon>
               <AttachMoney />
