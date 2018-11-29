@@ -3,13 +3,8 @@ import loginSaga from './loginSaga';
 import registrationSaga from './registrationSaga';
 import userSaga from './userSaga';
 import getGamesSaga from './getGamesSaga';
-import addGameSaga from './addGameSaga';
+import gameSaga from './gameSaga';
 import playCurrentUserSaga from './setUserPlayerSaga';
-import startInstanceSaga from './startInstanceSaga';
-import displayCurrentGameSaga from './displayCurrentGameSaga';
-import createNewInstanceSaga from './createNewInstanceSaga';
-import getPreviousStatsSaga from './getPreviousStatsSaga';
-import playExistingGameSaga from './playExistingGameSaga';
 import assignCategorySaga from './assignCategorySaga';
 import dataVisSaga from './dataVisSaga';
 
@@ -26,13 +21,8 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     getGamesSaga(),
-    addGameSaga(),
-    displayCurrentGameSaga(),
+    gameSaga(),
     playCurrentUserSaga(),
-    startInstanceSaga(),
-    createNewInstanceSaga(),
-    getPreviousStatsSaga(),
-    playExistingGameSaga(),
     assignCategorySaga(),
     dataVisSaga(),
   ]);

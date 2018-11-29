@@ -3,9 +3,15 @@ import axios from 'axios';
 
 function* getCategoryData(action) {
     console.log('in get data', action.payload);
+    let wins = [];
+    let users = [];
     try{
         const response = yield call(axios.get, `/stats/category/${action.payload}` );
-        yield put({type: 'SET_DATA', payload: response.data[0]})
+        for( let each of response.data ) {
+            wins = [...wins, each.wins];
+            users = [...users, each.username];
+        }
+        yield put({type: 'SET_DATA', payload: {wins: wins, users: users}});
     }
     catch (error) {
         console.log('error getting data');
@@ -13,9 +19,15 @@ function* getCategoryData(action) {
 }
 
 function* getGameData(action) {
+    let wins = [];
+    let users = [];
     try{
         const response = yield call(axios.get, `/stats/game/${action.payload}`);
-        yield put({type: 'SET_DATA', payload: response.data[0]})
+        for( let each of response.data ) {
+            wins = [...wins, each.wins];
+            users = [...users, each.username];
+        }
+        yield put({type: 'SET_DATA', payload: {wins: wins, users: users}});
     }
     catch (error) {
         console.log('error getting game data');
@@ -23,9 +35,15 @@ function* getGameData(action) {
 }
 
 function* getAllData() {
+    let wins = [];
+    let users = [];
     try{
-        const response = yield call(axios.get, '/stats/all')
-        yield put({type: 'SET_DATA', payload: response.data[0]})
+        const response = yield call(axios.get, '/stats/all');
+        for( let each of response.data ) {
+            wins = [...wins, each.wins];
+            users = [...users, each.username];
+        }
+        yield put({type: 'SET_DATA', payload: {wins: wins, users: users}});
     }
     catch (error) {
         console.log('error getting all data');

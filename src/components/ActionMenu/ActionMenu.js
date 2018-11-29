@@ -22,6 +22,8 @@ import Mail from '@material-ui/icons/Mail';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import AttachMoney from '@material-ui/icons/AttachMoney';
+import Paper from '@material-ui/core/Paper';
+
 
 
 
@@ -147,6 +149,7 @@ class NestedList extends React.Component {
 
     return (
       <div className={classes.root}>
+       <Paper>
         <List
           component="nav"
           subheader={<ListSubheader component="div">Actions</ListSubheader>}
@@ -206,6 +209,7 @@ class NestedList extends React.Component {
             </List>
           </Collapse>
         </List>
+       </Paper>
       </div>
     );
   }

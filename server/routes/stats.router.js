@@ -6,10 +6,12 @@ const router = express.Router();
  * GET route template
  */
 router.get('/all', (req, res) => {
-    const sqlText = `SELECT SUM(victory::int) as wins, 
-                    (COUNT(victory)) - (SUM(victory::int)) as losses 
+    const sqlText = `SELECT users.username, SUM(stats.victory::int) as wins
                     FROM stats
-                    WHERE user_id = $1;`;
+                    JOIN users ON users.id = stats.user_id
+                    WHERE stats.instance_id IN (
+                    SELECT stats.instance_id FROM stats WHERE stats.user_id = $1)
+                    GROUP BY users.username;`;
     const user = req.user.id;
     pool.query(sqlText, [user]) 
     .then((result) => {
@@ -22,15 +24,17 @@ router.get('/all', (req, res) => {
 
 router.get('/category/:id', (req,res) => {
     console.log(req.params.id);
-    const sqlText = `SELECT SUM(victory::int) as wins, 
-                    (COUNT(victory)) - (SUM(victory::int)) as losses 
-                    FROM stats
+    const sqlText = `SELECT users.username, SUM(stats.victory::int) as wins
+                    FROM stats JOIN users ON users.id = stats.user_id
+                    WHERE stats.instance_id 
+                    IN ( SELECT stats.instance_id FROM stats
                     JOIN instances ON instances.id = stats.instance_id
-                    JOIN games ON instances.game_id = games.id
-                    WHERE stats.user_id = $1 AND games.category_id = $2;`;
+                    JOIN games ON games.id = instances.game_id
+                    WHERE games.category_id = $1 AND stats.user_id = $2) 
+                    GROUP BY users.username;`;
     const user = req.user.id;
     const category = req.params.id;
-    pool.query(sqlText, [user, category])
+    pool.query(sqlText, [category, user])
     .then((result) => {
         res.send(result.rows);
     })
@@ -41,15 +45,17 @@ router.get('/category/:id', (req,res) => {
 
 router.get('/game/:id', (req,res) => {
     console.log('in stats game');
-    const sqlText = `SELECT SUM(victory::int) as wins, 
-                    (COUNT(victory)) - (SUM(victory::int)) as losses 
-                    FROM stats
+    const sqlText = `SELECT users.username, SUM(stats.victory::int) as wins
+                    FROM stats JOIN users ON users.id = stats.user_id
+                    WHERE stats.instance_id 
+                    IN ( SELECT stats.instance_id FROM stats
                     JOIN instances ON instances.id = stats.instance_id
-                    JOIN games ON instances.game_id = games.id
-                    WHERE stats.user_id = $1 AND games.id = $2;`;
+                    JOIN games ON games.id = instances.game_id
+                    WHERE games.id = $1 AND stats.user_id = $2) 
+                    GROUP BY users.username;`;
     const game = req.params.id;
     const user = req.user.id;
-    pool.query(sqlText, [user, game])
+    pool.query(sqlText, [ game, user])
     .then((result) => {
         res.send(result.rows);
     })

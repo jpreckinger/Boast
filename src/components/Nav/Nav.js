@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
 
 const Nav = (props) => (
   <div className="nav">
@@ -19,16 +18,13 @@ const Nav = (props) => (
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>
-          <Link className="nav-link" to="/info">
-            Info Page
+          <Link className="nav-link" to="/categories">
+           Categories
           </Link>
           <LogOutButton className="nav-link"/>
         </>
       )}
       {/* Always show this link since the about page is not protected */}
-      <Link className="nav-link" to="/categories">
-        Categories
-      </Link>
     </div>
   </div>
 );

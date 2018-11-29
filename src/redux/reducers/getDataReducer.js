@@ -1,4 +1,4 @@
-const currentInstanceId = (state = {}, action) => {
+const getData = (state = [], action) => {
     switch (action.type) {
       case 'SET_DATA':
         return  action.payload;
@@ -7,5 +7,5 @@ const currentInstanceId = (state = {}, action) => {
     }
   };
 
-  export default currentInstanceId;
+  export default getData;
   

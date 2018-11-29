@@ -30,7 +30,7 @@ class UserPage extends Component {
 
     render() {
         return (
-          <div>
+          <div >
             <div>
               <h1 id="welcome">
                 Hello, { this.props.state.user.username }!

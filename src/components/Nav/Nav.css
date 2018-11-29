@@ -13,22 +13,23 @@
 
 .nav-link {
   float: left;
-  color: #f2f2f2;
-  text-align: center;
+  text-align: left;
   padding: 24px 10px;
   text-decoration: none;
   font-size: 15px;
+  color: white;
 
   /* these last two make the logout button in
   the nav bar look like another link */
+  background: none;
   border:none;
   cursor: pointer;
   outline:0;
 }
 
-.nav-link:hover {
+/* .nav-link:hover {
   background-color: #9C0000;
-}
+} */
 
 .nav-right {
   float: right;

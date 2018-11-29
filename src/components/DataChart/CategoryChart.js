@@ -8,13 +8,12 @@ class DataChart extends Component {
 
   render() {
     return (
-        <div id="taco">
+        <div id="chart">
             <Pie
                 data={{
                     labels: this.props.state.getData.users,
                     datasets: [
                         {
-                        
                             data: 
                             this.props.state.getData.wins
                         ,
@@ -33,17 +32,17 @@ class DataChart extends Component {
                     }
                 ]
             }}
-            height={50}
+            height={400}
             
             options={{
                 title:{
-                    display:true,
+                    display:false,
                     text: 'Are you even good?',
                     fontSize:25
                 },
                 legend:{
                     display:true,
-                    position: 'right'
+                    position: 'bottom'
                 }
             }}
         />

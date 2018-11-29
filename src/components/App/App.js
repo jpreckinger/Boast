@@ -8,7 +8,7 @@ import {
 
 import {connect} from 'react-redux';
 
-import Nav from '../Nav/Nav';
+import NavBar from '../NavBar/NavBar';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
@@ -25,14 +25,13 @@ import './App.css';
 class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'});
-    this.props.dispatch({type: 'FETCH_CURRENT_GAME'});
   }
 
   render() {
     return (
       <Router>
         <div>
-          <Nav />
+          <NavBar />
           <Switch>
             <Redirect exact from="/" to="/home" />
             <ProtectedRoute exact path="/home" component={UserPage} />

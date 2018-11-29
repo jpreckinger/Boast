@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import AddGameCards from '../AddGameCards/AddGameCards';
 import axios from 'axios';
-import DataChart from '../DataChart/DataChart';
+import CategoryChart from '../DataChart/CategoryChart';
 
 class CategoryPage extends Component {
 
@@ -34,7 +34,6 @@ class CategoryPage extends Component {
     }
 
     getRequestedGames = (event) => {
-        console.log('in get games');
         axios.get(`/category/all/${event.target.value}`)
         .then((response) => {
             this.setState({
@@ -58,9 +57,6 @@ class CategoryPage extends Component {
         return (
             <div>
                 <div>
-                    <DataChart />
-                </div>
-                <div>
                     <select onChange={this.getRequestedGames}>
                         {this.state.categories.map( category => (
                             <option key={category.id} value={category.id}>
@@ -70,8 +66,9 @@ class CategoryPage extends Component {
                     </select>
                 </div>
                 <div className="gameList">
+                    <CategoryChart />
                     {this.state.games.map( game => (
-                        <div key={game.id} onClick={() => this.displayGameClick(game)}>
+                        <div key={game.id} onClick={() => this.displayGameClick(game)} id="gameCard">
                             <AddGameCards game={game} />
                         </div>
                     ))}

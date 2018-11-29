@@ -10,7 +10,7 @@ router.get('/all/:id', (req, res) => {
                     games.game_name as name FROM games
                     JOIN users ON users.id = games.user_id
                     JOIN categories ON categories.id = games.category_id
-                    WHERE games.user_id = $1 AND games.category_id = $2 LIMIT 5;`;
+                    WHERE games.user_id = $1 AND games.category_id = $2;`;
     const user = req.user.id;
     const category = req.params.id;
     pool.query(sqlText, [user, category])
