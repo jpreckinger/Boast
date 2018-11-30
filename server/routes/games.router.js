@@ -21,6 +21,22 @@ router.get('/current', (req, res) => {
     })
 });
 
+router.get('/search/:name', (req,res) => {
+    console.log('req', req.params.name);
+    const sqlText = `SELECT game_name FROM games
+                    WHERE user_id = $1 AND lower(game_name) SIMILAR TO ($2) LIMIT 5;`;
+    const gameToSearch = req.params.name;
+    const user = req.user.id;
+    pool.query(sqlText, [user, gameToSearch + '%'])
+    .then((result) => {
+        console.log('results is', result.rows);
+        res.send(result.rows);
+    })
+    .catch(() => {
+        res.sendStatus(500);
+    })
+});
+
 router.get('/:name', (req, res) => {
     const sqlText = `SELECT game_name, game_image, id FROM games
                     WHERE user_id=$1 AND game_name=$2;`;

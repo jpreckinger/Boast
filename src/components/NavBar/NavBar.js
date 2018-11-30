@@ -18,7 +18,25 @@ import { Link } from 'react-router-dom';
 import './NavBar.css';
 import Category from '@material-ui/icons/Category';
 import ActionMenu from '../ActionMenu/ActionMenu';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import axios from 'axios';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import Games from '@material-ui/icons/Games';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
+
+const theme = createMuiTheme ({
+  palette: {
+    primary: {
+      main: '#b2102f',
+    },
+    secondary: {
+      main: '#ffffff'
+    }
+  }
+});
 
 const styles = theme => ({
   root: {
@@ -93,7 +111,9 @@ const styles = theme => ({
 class PrimarySearchAppBar extends React.Component {
   state = {
     anchorEl: null,
-    anchorEl2: null
+    anchorEl2: null,
+    query: '',
+    search: [],
   };
 
   handleProfileMenuOpen = event => {
@@ -101,11 +121,14 @@ class PrimarySearchAppBar extends React.Component {
   };
 
   handleActionMenuOpen = event => {
-    this.setState({ anchorEl2: event.currentTarget });
+    if(this.props.state.user.id){
+      this.setState({ anchorEl2: event.currentTarget });
+    }
   }
 
   logOut = () => {
       this.props.dispatch({type: 'LOGOUT'});
+      this.props.dispatch({type: 'RESET'});
   };
 
   handleMenuClose = () => {
@@ -114,7 +137,22 @@ class PrimarySearchAppBar extends React.Component {
 
   handleMenuClose2 = () => {
     this.setState({ anchorEl2: null})
-  }
+  };
+
+  searchGames = (event) => {
+    console.log('in search games');
+    if(event.target.value){
+        axios.get(`/myGames/search/${event.target.value}`)
+        .then((response) => {
+            this.setState({search: response.data})
+        })
+        .catch((error) => {
+            alert('error searching for games');
+        })
+        this.setState({query: event.target.value})
+    }
+    this.setState({query: event.target.value, search: []});
+ };
 
   render() {
     const { anchorEl } = this.state;
@@ -149,7 +187,8 @@ class PrimarySearchAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <MuiThemeProvider theme={theme}>
+        <AppBar position="static" color='primary'>
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer"
             aria-owns={isMenuOpen2 ? 'material-appbar' : undefined}
@@ -165,6 +204,7 @@ class PrimarySearchAppBar extends React.Component {
                 <SearchIcon />
               </div>
               <InputBase
+                onChange={this.searchGames}
                 placeholder="Search Games"
                 classes={{
                   root: classes.inputRoot,
@@ -195,6 +235,21 @@ class PrimarySearchAppBar extends React.Component {
             </div>
           </Toolbar>
         </AppBar>
+        </MuiThemeProvider> 
+        <List>
+          {this.state.search.map( (game, index) => (
+            <div key={index}>
+              <ListItem>
+                <ListItemIcon>
+                  <Games/>
+                </ListItemIcon>
+                <ListItemText>
+                  {game.game_name}
+                </ListItemText>
+              </ListItem>
+            </div>
+          ))}
+          </List>
         {renderMenu2}
         {renderMenu}
       </div>
@@ -206,5 +261,6 @@ PrimarySearchAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = state => ({state});
 
-export default withStyles(styles)(connect()(PrimarySearchAppBar));
+export default withStyles(styles)(connect(mapStateToProps)(PrimarySearchAppBar));

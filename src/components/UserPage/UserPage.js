@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './UserPage.css';
-import ActionMenu from '../ActionMenu/ActionMenu';
 import DataChart from '../DataChart/DataChart';
+import Button from '@material-ui/core/Button';
 
 class UserPage extends Component {
 
@@ -23,9 +23,9 @@ class UserPage extends Component {
               </h1>
             </div>
             <div id="playThis">
-              <button onClick={this.newGameClick}>Start New Game</button>
+              <Button onClick={this.newGameClick} size="large" variant="contained">Start New Game</Button>
             </div>
-            <div>
+            <div id="frontChart">
               <DataChart />
             </div>
           </div>

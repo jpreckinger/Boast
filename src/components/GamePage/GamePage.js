@@ -36,6 +36,7 @@ class GamePage extends Component {
     }
 
     componentDidMount() {
+            console.log(this.props.match.params); 
             this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id});
             this.props.dispatch({type: 'GET_GAME_DATA', payload: this.props.state.prepareInstance.id});
     }
@@ -45,7 +46,7 @@ class GamePage extends Component {
         return (
             <div >    
                  <div id="instanceCard">
-                     <InstanceCard />
+                    {this.props.state.prepareInstance && <InstanceCard />}
                  </div>
                  <div>
                     <button onClick={this.playGameClick}>Play Now</button>

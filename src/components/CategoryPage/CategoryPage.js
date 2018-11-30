@@ -3,6 +3,10 @@ import {connect} from 'react-redux';
 import AddGameCards from '../AddGameCards/AddGameCards';
 import axios from 'axios';
 import CategoryChart from '../DataChart/CategoryChart';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+
+
 
 class CategoryPage extends Component {
 
@@ -57,13 +61,14 @@ class CategoryPage extends Component {
         return (
             <div>
                 <div>
-                    <select onChange={this.getRequestedGames}>
+                    <InputLabel htmlFor="cat">Category</InputLabel>
+                    <Select onChange={this.getRequestedGames} value="category" id="cat">
                         {this.state.categories.map( category => (
                             <option key={category.id} value={category.id}>
                                 {category.category_name}
                             </option>
                         ))}
-                    </select>
+                    </Select>
                 </div>
                 <div className="gameList">
                     <CategoryChart />

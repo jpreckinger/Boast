@@ -38,12 +38,13 @@ class DataChart extends Component {
             options={{
                 title:{
                     display:true,
-                    text: 'Are you even good?',
+                    text: 'Wins/Losses',
                     fontSize:25
                 },
                 legend:{
                     display:true,
-                    position: 'bottom'
+                    position: 'bottom',
+                    
                 }
             }}
         />

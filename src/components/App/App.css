@@ -76,6 +76,8 @@ input {
 
 #barChart{
     width: 50%;
-    height: 50%;
 }
 
+body{
+    font-family: 'Roboto', sans-serif; 
+}

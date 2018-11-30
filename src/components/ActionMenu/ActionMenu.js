@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -22,7 +21,6 @@ import Mail from '@material-ui/icons/Mail';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import AttachMoney from '@material-ui/icons/AttachMoney';
-import Paper from '@material-ui/core/Paper';
 
 
 
@@ -148,8 +146,7 @@ class NestedList extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-       <Paper>
+      <div className={classes.root}>   
         <List>
           <ListItem button>
             <ListItemIcon>
@@ -205,8 +202,7 @@ class NestedList extends React.Component {
                 ))}
             </List>
           </Collapse>
-        </List>
-       </Paper>
+        </List>     
       </div>
     );
   }
