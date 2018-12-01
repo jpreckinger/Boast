@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import InstanceCard from '../InstanceCard/InstanceCard';
 import FriendSearch from '../FriendSearch/FriendSearch';
 import ActivePlayers from '../ActivePlayers/ActivePlayers';
+import Button from '@material-ui/core/Button';
 
 class InstancePage extends Component {
 
@@ -30,8 +31,10 @@ class InstancePage extends Component {
                     <InstanceCard />
                 </div>
                 <div id="addPlayers">
-                    <button onClick={this.startGameClick}>Start Game</button>
                     <FriendSearch />
+                    <div id="startButton">
+                        <Button onClick={this.startGameClick} size="large" variant="contained">Start Game</Button>
+                    </div>
                 </div>
                 <div id="activePlayers">
                     <h2>Active Players:</h2>

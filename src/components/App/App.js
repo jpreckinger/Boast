@@ -31,7 +31,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <NavBar />
+          <NavBar history={this.props.history} />
           <Switch>
             <Redirect exact from="/" to="/home" />
             <ProtectedRoute exact path="/home" component={UserPage} />

@@ -1,8 +1,8 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Roboto', sans-serif; 
     margin: 0px;
-    /* background: -webkit-linear-gradient(360deg, #1C1C1C 10%, #494949 360%); */
-    /* color: white; */
+    /* background: -webkit-linear-gradient(360deg, #1C1C1C 10%, #494949 360%);
+    color: white; */
 }
 
 .alert {
@@ -11,7 +11,7 @@ body {
 }
 
 form {
-    background-color: #dbd5d5;
+    
     width: 30%;
     height: 250px;
     margin: 20px auto;
@@ -75,9 +75,36 @@ input {
 }
 
 #barChart{
-    width: 50%;
+    width: 40%;
 }
 
-body{
-    font-family: 'Roboto', sans-serif; 
+#startButton{
+    display: flex;
+    justify-content: center;
+}
+
+#previousR{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
+
+#instanceCard{
+    margin-left: 10px;
+}
+
+#buttonAndPie{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#loginB{
+    margin: 10px;
+}
+
+#enterScores{
+    display: flex;
+    justify-content: space-between;
 }

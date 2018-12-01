@@ -27,6 +27,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 
+
 const theme = createMuiTheme ({
   palette: {
     primary: {
@@ -128,7 +129,6 @@ class PrimarySearchAppBar extends React.Component {
 
   logOut = () => {
       this.props.dispatch({type: 'LOGOUT'});
-      this.props.dispatch({type: 'RESET'});
   };
 
   handleMenuClose = () => {
@@ -139,8 +139,16 @@ class PrimarySearchAppBar extends React.Component {
     this.setState({ anchorEl2: null})
   };
 
+  handleSearchClick = (game) => {
+    this.props.dispatch({type: 'SELECT_GAME', payload: game});
+    this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.state.user});
+    this.setState({
+      query: '',
+      search: []
+    })
+  }
+
   searchGames = (event) => {
-    console.log('in search games');
     if(event.target.value){
         axios.get(`/myGames/search/${event.target.value}`)
         .then((response) => {
@@ -205,6 +213,7 @@ class PrimarySearchAppBar extends React.Component {
               </div>
               <InputBase
                 onChange={this.searchGames}
+                value={this.state.query}
                 placeholder="Search Games"
                 classes={{
                   root: classes.inputRoot,
@@ -239,7 +248,8 @@ class PrimarySearchAppBar extends React.Component {
         <List>
           {this.state.search.map( (game, index) => (
             <div key={index}>
-              <ListItem>
+              <Link className="nav-link" to="/gamepage">
+              <ListItem button onClick={() => this.handleSearchClick(game)}>
                 <ListItemIcon>
                   <Games/>
                 </ListItemIcon>
@@ -247,6 +257,7 @@ class PrimarySearchAppBar extends React.Component {
                   {game.game_name}
                 </ListItemText>
               </ListItem>
+              </Link>
             </div>
           ))}
           </List>
@@ -263,4 +274,4 @@ PrimarySearchAppBar.propTypes = {
 
 const mapStateToProps = state => ({state});
 
-export default withStyles(styles)(connect(mapStateToProps)(PrimarySearchAppBar));
+export default connect(mapStateToProps)(withStyles(styles)(PrimarySearchAppBar));

@@ -23,7 +23,7 @@ router.get('/current', (req, res) => {
 
 router.get('/search/:name', (req,res) => {
     console.log('req', req.params.name);
-    const sqlText = `SELECT game_name FROM games
+    const sqlText = `SELECT * FROM games
                     WHERE user_id = $1 AND lower(game_name) SIMILAR TO ($2) LIMIT 5;`;
     const gameToSearch = req.params.name;
     const user = req.user.id;

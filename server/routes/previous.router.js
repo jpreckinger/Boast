@@ -4,10 +4,10 @@ const router = express.Router();
 
 
 router.get('/stats/:instance_id', (req,res) => {
-    const sqlText = `SELECT instances.id, users.username, stats.score, stats.victory FROM stats
+    const sqlText = `SELECT instances.id, users.username, users.id, stats.score, stats.victory FROM stats
                     JOIN instances ON instances.id = stats.instance_id
                     JOIN users ON stats.user_id = users.id
-                    WHERE instances.id = $1;`;
+                    WHERE instances.id = $1 ORDER BY users.id;`;
     pool.query(sqlText, [req.params.instance_id])
     .then((response) => {
         res.send(response.rows)

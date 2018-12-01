@@ -45,14 +45,14 @@ router.get('/category/:id', (req,res) => {
 
 router.get('/game/:id', (req,res) => {
     console.log('in stats game');
-    const sqlText = `SELECT users.username, SUM(stats.victory::int) as wins
+    const sqlText = `SELECT users.username, users.id, SUM(stats.victory::int) as wins
                     FROM stats JOIN users ON users.id = stats.user_id
                     WHERE stats.instance_id 
                     IN ( SELECT stats.instance_id FROM stats
                     JOIN instances ON instances.id = stats.instance_id
                     JOIN games ON games.id = instances.game_id
                     WHERE games.id = $1 AND stats.user_id = $2) 
-                    GROUP BY users.username;`;
+                    GROUP BY users.username, users.id ORDER BY users.id;`;
     const game = req.params.id;
     const user = req.user.id;
     pool.query(sqlText, [ game, user])

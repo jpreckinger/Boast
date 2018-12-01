@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import Input from '@material-ui/core/Input';
 import AddGameCards from '../AddGameCards/AddGameCards';
-import './AddGame.css'
 
 class AddGame extends Component {
 
@@ -12,18 +11,12 @@ class AddGame extends Component {
 
     addGameClick = (game) => {
         this.props.history.push('/playgame');
-        console.log('payload',game);
         this.props.dispatch({type: 'ADD_NEW_GAME', payload: game});
         this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.reduxState.user});
     }
 
-    customGameClick = () => {
-        this.props.history.push('/customgame')
-    }
-
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log('form submitted daddy');
         this.props.dispatch({type: 'FETCH_GAMES', payload: this.state.query})
     }
 
@@ -37,13 +30,11 @@ class AddGame extends Component {
     render() {
         return (
         <div>
-            <div>
-                <button onClick={this.customGameClick}>Custom Game</button>
-            </div>
+
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <Input onChange={this.handleChange} type="search" 
-                    placeholder="Search" value={this.state.query}/>
+                    placeholder="Search for games" value={this.state.query}/>
                 </form>
             </div>
             <div className="gameList">

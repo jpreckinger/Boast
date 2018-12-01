@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import InstanceCard from '../InstanceCard/InstanceCard';
 import Input from '@material-ui/core/Input';
-import DataChart from '../DataChart/DataChart';
-import CategoryChart from '../DataChart/CategoryChart';
+import GameChart from '../DataChart/GameChart';
 import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
+import Button from '@material-ui/core/Button';
+
 
 
 class GamePage extends Component {
@@ -36,33 +37,34 @@ class GamePage extends Component {
     }
 
     componentDidMount() {
-            console.log(this.props.match.params); 
             this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id});
             this.props.dispatch({type: 'GET_GAME_DATA', payload: this.props.state.prepareInstance.id});
     }
 
-
     render() {
         return (
-            <div >    
-                 <div id="instanceCard">
+            <div className="fullPage">    
+                <div id="instanceCard">
                     {this.props.state.prepareInstance && <InstanceCard />}
-                 </div>
-                 <div>
-                    <button onClick={this.playGameClick}>Play Now</button>
                     <form id="setCategory" onSubmit={this.submitCategory}>
                         <Input onChange={this.handleChange} type="text" 
                         placeholder="Assign Category" value={this.state.category}/>
                     </form>
-                 </div>
+                </div>
+                <div id="buttonAndPie">
+                    <Button onClick={this.playGameClick} size="large" variant="contained">Play Now!</Button>
+                    <div>
+                        <GameChart/>
+                    </div>
+                </div>
                 <div  id='barChart' >
-                    {/* <h2>Previous Results:</h2> */}
+                    <h2 id="previousR">Previous Results:</h2>
                     {this.props.state.previousStats.notes.map( (noteLine, index) => (
                         <div key={index}>
                             <div >
                                 <Bar
                                     data={{
-                                        labels: this.props.state.previousStats.users[index],
+                                        labels: [this.props.state.previousStats.users[index]],
                                         datasets: [
                                             {
                                                 data: this.props.state.previousStats.scores[index],
@@ -71,9 +73,7 @@ class GamePage extends Component {
                                             }
                                         ]
                                     }}
-                                    
-                                    
-                                
+                                    height={200}
                                     options={{
                                         maintainAspectRatio: false,
                                         title:{
@@ -85,12 +85,13 @@ class GamePage extends Component {
                                             display:true,
                                             position: 'bottom'
                                         },
-                                        // scales: {
-                                        //     xAxes: [{
-                                        //         barThickness : 15,
-                                        //     }]
-                                        // },
-                                        // maintainAspectRatio: false
+                                        scales: {
+                                            yAxes: [{
+                                                ticks: {
+                                                    beginAtZero: true
+                                                } 
+                                            }]
+                                        },
                                     }}
                                 />
                             </div>

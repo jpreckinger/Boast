@@ -4,8 +4,6 @@ const setPlayers = (state = [], action) => {
         return  [...state, action.payload];
       case 'RESET_PLAYERS':
         return [];
-      case 'RESET':
-        return [];
       default:
         return state;
     }

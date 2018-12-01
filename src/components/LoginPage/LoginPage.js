@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+
 
 
 class LoginPage extends Component {
@@ -35,13 +37,6 @@ class LoginPage extends Component {
 
   render() {
     return (  
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        width="50%"
-      >
         <Paper>
           {this.props.errors.loginMessage && (
             <h2
@@ -51,6 +46,7 @@ class LoginPage extends Component {
               {this.props.errors.loginMessage}
             </h2>
           )}
+          <center>
           <form onSubmit={this.login} id="setCategory">
             <h1>Login</h1>
             <div>
@@ -72,25 +68,28 @@ class LoginPage extends Component {
                 />
             </div>
             <div>
-              <input
-                className="log-in"
+              <Button
+                size="large"
+                id="loginB"
                 type="submit"
-                name="submit"
-                value="Log In"
-              />
+                variant="contained"
+                
+              >Log In</Button>
             </div>
           </form>
+          </center>
           <center>
-            <button
-              type="button"
-              className="link-button"
+            <Button
+              id="loginB"
+              size="large"
+              color="secondary"
+              variant="contained"
               onClick={() => {this.props.dispatch({type: 'SET_TO_REGISTER_MODE'})}}
             >
               Register
-            </button>
+            </Button>
           </center>
         </Paper>
-      </Grid>
     );
   }
 }

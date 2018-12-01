@@ -3,14 +3,10 @@ import {connect} from 'react-redux';
 import InstanceCard from '../InstanceCard/InstanceCard';
 import EnterScores from '../EnterScores/EnterScores';
 import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
+
 
 class ResultsPage extends Component {
-
-    // componentDidMount() {
-    //     if(this.props.state.setPlayers === []){
-    //         this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.state.user})
-    //     }
-    // }
 
     saveResultsClick = () => {
         this.props.history.push('/gamepage');
@@ -23,10 +19,14 @@ class ResultsPage extends Component {
                     <InstanceCard />
                 </div>
                 <div>
-                    <button onClick={this.saveResultsClick}>Save Results</button>
+                <Button onClick={this.saveResultsClick} size="large" variant="contained">Save Results</Button>
                 </div>
                 <div id="activePlayers">
-                    <h2>Active Players:</h2>
+                    <div id="enterScores">
+                        <h3>Input Scores</h3>
+                        <h3>Players</h3>
+                        <h3>Winner(s)</h3>
+                    </div>
                     <List>
                         {this.props.state.setPlayers.map(player => (
                             <EnterScores key={player.id} user={player}/>
