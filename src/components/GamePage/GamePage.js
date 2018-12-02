@@ -64,7 +64,7 @@ class GamePage extends Component {
                             <div >
                                 <Bar
                                     data={{
-                                        labels: [this.props.state.previousStats.users[index]],
+                                        labels: this.props.state.previousStats.users[index],
                                         datasets: [
                                             {
                                                 data: this.props.state.previousStats.scores[index],
