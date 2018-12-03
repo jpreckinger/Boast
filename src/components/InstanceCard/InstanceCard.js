@@ -8,6 +8,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import {connect} from 'react-redux';
 
+//this component, which is very similar to the addGameCards,
+//handles the display of the current game on the DOM, using Material UI
+
 const styles = {
   card: {
     maxWidth: 345,

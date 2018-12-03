@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Pie } from 'react-chartjs-2';
 
+//handles the creation of a pie chart on the game page
+
 class DataChart extends Component {
-
-
 
   render() {
     return (

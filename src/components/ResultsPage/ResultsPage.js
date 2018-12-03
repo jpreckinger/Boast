@@ -5,6 +5,10 @@ import EnterScores from '../EnterScores/EnterScores';
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 
+//this component is the results page, where the user enters the scores for
+//for all active players and sets winers and losers.
+//This component doesn't really do much, but it hosts the InstanceCard
+//and EnterScores components, which do most of the heavy work here.
 
 class ResultsPage extends Component {
 
@@ -38,9 +42,6 @@ class ResultsPage extends Component {
     }
 }
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({state});
 
 export default connect(mapStateToProps)(ResultsPage);

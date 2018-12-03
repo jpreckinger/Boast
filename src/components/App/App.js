@@ -19,13 +19,17 @@ import GamePage from '../GamePage/GamePage';
 import InstancePage from '../InstancePage/InstancePage';
 import ResultsPage from '../ResultsPage/ResultsPage';
 import CategoryPage from '../CategoryPage/CategoryPage';
-
 import './App.css';
 
+//component handles getting users, and setting up the routes for navigating
+
+
 class App extends Component {
+
+  //gets current user on initial mount
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'});
-  }
+  };//end lifecycle
 
   render() {
     return (

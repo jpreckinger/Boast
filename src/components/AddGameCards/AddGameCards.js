@@ -7,6 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+//Material-UI styling to display incoming games from API
+//as cards on the DOM to be selected by the user.
+
 const styles = {
   card: {
     maxWidth: 345,

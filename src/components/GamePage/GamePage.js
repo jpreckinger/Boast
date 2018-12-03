@@ -7,7 +7,7 @@ import { Bar } from 'react-chartjs-2';
 import moment from 'moment';
 import Button from '@material-ui/core/Button';
 
-
+//this component displays an individual game, and previous stats for the current user
 
 class GamePage extends Component {
 
@@ -15,12 +15,14 @@ class GamePage extends Component {
         category: ''
     }
 
+    //handles change for setting a game to a category
     handleChange = (event) => {
         this.setState({
             category: event.target.value
         })
-    }
+    };
 
+    //handles the submission of a category string to the database
     submitCategory = (event) => {
         event.preventDefault();
         this.props.dispatch({type: 'ASSIGN_CATEGORY', payload: {
@@ -29,18 +31,25 @@ class GamePage extends Component {
             }
         });
         this.setState({category: ''})
-    }
+    };
 
+    //sends the user to the instance page, and creates a new instance in the DB
     playGameClick = () => {
         this.props.history.push('/playgame');
         this.props.dispatch({type: 'CREATE_NEW_INSTANCE', payload: this.props.state.prepareInstance})
-    }
+    };
 
+    //renders stats for charts on mount
     componentDidMount() {
             this.props.dispatch({type: 'GET_PREVIOUS_STATS', payload: this.props.state.prepareInstance.id});
             this.props.dispatch({type: 'GET_GAME_DATA', payload: this.props.state.prepareInstance.id});
-    }
+    };
 
+
+    //this is the JSX for the game card, borrowed from another component, as well
+    //as the charts, which are rendered individually for each dataset sent back from the DB,
+    //up to 3 unique datasets
+    //additionally, this renders the pie chart, borrowed from a different component
     render() {
         return (
             <div className="fullPage">    

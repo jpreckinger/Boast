@@ -26,7 +26,15 @@ import Games from '@material-ui/icons/Games';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
+//this component handles the styles and functions of the AppBar/NavBar
+//which is included on every page
+//it handles the positioning of the two popup menues, and the navigiation 
+//onClick of each of the icons, as well as the live search feature
+//which is similar to those used for users and friends, but searches for a
+//users exisiting games.
 
+//TODO: componentize this to have a cleaner look, and be easier to change
+//and understand
 
 const theme = createMuiTheme ({
   palette: {

@@ -12,9 +12,8 @@ import axios from 'axios';
 import AddCircle from '@material-ui/icons/AddCircle';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-
-
-//TODO: componentize this monstrous piece of garbage
+//this component handles the live search of exisiting friends,
+//specific to each user, in order to add them to the current game
 
 const styles = theme => ({
   root: {
@@ -33,6 +32,7 @@ class FriendSearch extends React.Component {
     query: '',
   };
 
+  //handles live search, mostly reused from the ActionMenu live search
     handleChange = (event) => {
         if(event.target.value){
             axios.get(`/friends/instance/${event.target.value}`)
@@ -45,15 +45,16 @@ class FriendSearch extends React.Component {
             this.setState({query: event.target.value})
         }
         this.setState({query: event.target.value, search: []})
-    }
+    };
 
+    //adds selected user to active players
     addToInstance = (user) => {
         this.props.dispatch({type: 'SET_PLAYERS', payload: user});
         this.setState({
             search: [],
             query: ''
         })
-    }
+    };
     
 
   render() {

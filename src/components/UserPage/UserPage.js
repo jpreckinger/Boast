@@ -6,13 +6,16 @@ import Button from '@material-ui/core/Button';
 
 class UserPage extends Component {
 
+    //handles getting the users total wins, as well as all users they have
+    //shared instances with
     componentDidMount() {
       this.props.dispatch({type: 'GET_ALL_DATA'})
-    }
+    };
 
+    //navigates the user to the API search view onClick
     newGameClick = () => {
         this.props.history.push('/addgame')
-    }
+    };
 
     render() {
         return (

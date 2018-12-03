@@ -11,7 +11,6 @@ class InstancePage extends Component {
         if(this.props.state.setPlayers.length < 1){
             this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.state.user})
         }
-        console.log(this.props.state.setPlayers);
     }
 
     startGameClick = () => {

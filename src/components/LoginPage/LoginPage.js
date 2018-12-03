@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
-
+//this component handles the user log in functionality
 
 class LoginPage extends Component {
   state = {
@@ -13,6 +13,9 @@ class LoginPage extends Component {
     password: '',
   };
 
+
+  //dispatches the login action if the username and password fields are filled
+  //or returns an error if they are incorrectly filled
   login = (event) => {
     event.preventDefault();
 
@@ -29,6 +32,7 @@ class LoginPage extends Component {
     }
   } // end login
 
+  //handles the change of the input fields
   handleInputChangeFor = propertyName => (event) => {
     this.setState({
       [propertyName]: event.target.value,
@@ -94,9 +98,6 @@ class LoginPage extends Component {
   }
 }
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = state => ({
   errors: state.errors,
 });

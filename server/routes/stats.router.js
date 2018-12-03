@@ -1,11 +1,13 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+
 
 /**
  * GET route template
  */
-router.get('/all', (req, res) => {
+router.get('/all', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT users.username, SUM(stats.victory::int) as wins
                     FROM stats
                     JOIN users ON users.id = stats.user_id
@@ -22,7 +24,7 @@ router.get('/all', (req, res) => {
     })
 });
 
-router.get('/category/:id', (req,res) => {
+router.get('/category/:id', rejectUnauthenticated, (req,res) => {
     console.log(req.params.id);
     const sqlText = `SELECT users.username, SUM(stats.victory::int) as wins
                     FROM stats JOIN users ON users.id = stats.user_id
@@ -43,7 +45,7 @@ router.get('/category/:id', (req,res) => {
     })
 });
 
-router.get('/game/:id', (req,res) => {
+router.get('/game/:id', rejectUnauthenticated, (req,res) => {
     console.log('in stats game');
     const sqlText = `SELECT users.username, users.id, SUM(stats.victory::int) as wins
                     FROM stats JOIN users ON users.id = stats.user_id

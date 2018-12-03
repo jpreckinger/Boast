@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
+//this component handles user registration, adding 
+//their username and password to the database, and then dispatches the login
+//action using the new users credentials.
+
 class RegisterPage extends Component {
   state = {
     username: '',

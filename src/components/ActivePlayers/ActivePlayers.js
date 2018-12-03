@@ -7,8 +7,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {connect} from 'react-redux';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-
-
+//component to handle list of current players for any given instance,
+//information handled in redux-store
 
 const styles = theme => ({
   root: {

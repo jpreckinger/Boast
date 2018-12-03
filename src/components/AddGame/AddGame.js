@@ -9,22 +9,28 @@ class AddGame extends Component {
         query: '',
     }
 
+    //dispatches action to add new game from BGG API into user's existing games
+    //this also sets the current user as a player for the existing game
+    //additionally, this moves the user to the next page where
+    //they can initiate a play instance
     addGameClick = (game) => {
         this.props.history.push('/playgame');
         this.props.dispatch({type: 'ADD_NEW_GAME', payload: game});
         this.props.dispatch({type: 'SET_USER_PLAYER', payload: this.props.reduxState.user});
-    }
+    }//end click handler
 
+    //handles sending the API request to the server, and thereby to the API
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.dispatch({type: 'FETCH_GAMES', payload: this.state.query})
-    }
+    };//end submit
 
+    //handles changing state to update on change within the search bar.
     handleChange = (event) => {
         this.setState({
             query: event.target.value
         })
-    }
+    };//end changr handler
 
 
     render() {
@@ -49,9 +55,6 @@ class AddGame extends Component {
     }
 }
 
-// Instead of taking everything from state, we just want the error messages.
-// if you wanted you could write this code like this:
-// const mapStateToProps = ({errors}) => ({ errors });
 const mapStateToProps = reduxState => ({reduxState});
 
 export default connect(mapStateToProps)(AddGame);

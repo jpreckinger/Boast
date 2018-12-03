@@ -1,11 +1,13 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+
 
 /**
  * GET route template
  */
-router.get('/all/:id', (req, res) => {
+router.get('/all/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT games.id, games.game_image as image_url,
                     games.game_name as name FROM games
                     JOIN users ON users.id = games.user_id

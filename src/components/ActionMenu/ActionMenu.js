@@ -22,10 +22,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import AttachMoney from '@material-ui/icons/AttachMoney';
 
-
-
-
-//TODO: componentize this monstrous piece of garbage
+//This component displays when the hamburger menu is clicked.
 
 const styles = theme => ({
   root: {
@@ -55,6 +52,7 @@ class NestedList extends React.Component {
         this.setState(state => ({ requestOpen: !state.requestOpen}))
     };
 
+    //handles live search feature when searching for users to add as friends.
     handleChange = (event) => {
         if(event.target.value){
             axios.get(`/friends/${event.target.value}`)
@@ -67,8 +65,9 @@ class NestedList extends React.Component {
             this.setState({query: event.target.value})
         }
         this.setState({query: event.target.value, search: []})
-     }
+     }//end live search
 
+     //dispatches information to add users as friends
      sendRequest = (user) => {
          this.setState({ search: [], query: ''});
          axios.post('/friends', {data: user.id})
@@ -78,12 +77,14 @@ class NestedList extends React.Component {
          .catch(()=> {
              alert('Oops, something went wrong. Try again later.')
          })
-     }
+     }//end send request
 
+    //gets outstanding friend requests for individual user on render of menu
     componentDidMount(){
         this.getRequests();
-    }
+    }//end lifecycle method
 
+    //extention of above, handles GET request to bring in friend requests.
     getRequests = () => {
         axios.get('/friends/requests')
         .then((response) => {
@@ -92,8 +93,9 @@ class NestedList extends React.Component {
         .catch((error) => {
             alert('error getting friend requests');
         })
-    }
+    }//end getRequests
 
+    //Confirmation popup when accepting or deleting a friend request
     handleRequest = (user) => {
         confirmAlert({
             title:`Friend request from: ${user.username}`,
@@ -114,6 +116,7 @@ class NestedList extends React.Component {
         })
     };
 
+    //handles accepting requests
     acceptRequest = (user) => {
         axios.put(`/friends/${user.id}`)
         .then(() => {
@@ -131,6 +134,7 @@ class NestedList extends React.Component {
         })
     };
 
+    //handles deleting requests
     declineRequest = (user) => {
         axios.delete(`/friends/${user.id}`)
         .then(() => {
@@ -140,7 +144,7 @@ class NestedList extends React.Component {
         .catch(() => {
             alert(`Something went wrong, please try again later`)
         })
-    }
+    };//end popup handler
 
   render() {
     const { classes } = this.props;

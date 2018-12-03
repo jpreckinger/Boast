@@ -1,12 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-/**
- * GET route template
- */
 
-router.get('/current', (req, res) => {
+
+
+router.get('/current', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT games.game_name, games.game_image, games.id,
                     instances.id as instance FROM games
                     JOIN instances ON instances.game_id = games.id
@@ -17,19 +17,17 @@ router.get('/current', (req, res) => {
         res.send(result.rows)
     })
     .catch(() => {
-        console.log('error getting current game');
+        res.sendStatus(500);
     })
 });
 
-router.get('/search/:name', (req,res) => {
-    console.log('req', req.params.name);
+router.get('/search/:name', rejectUnauthenticated, (req,res) => {
     const sqlText = `SELECT * FROM games
                     WHERE user_id = $1 AND lower(game_name) SIMILAR TO ($2) LIMIT 5;`;
     const gameToSearch = req.params.name;
     const user = req.user.id;
     pool.query(sqlText, [user, gameToSearch + '%'])
     .then((result) => {
-        console.log('results is', result.rows);
         res.send(result.rows);
     })
     .catch(() => {
@@ -37,7 +35,7 @@ router.get('/search/:name', (req,res) => {
     })
 });
 
-router.get('/:name', (req, res) => {
+router.get('/:name', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT game_name, game_image, id FROM games
                     WHERE user_id=$1 AND game_name=$2;`;
     pool.query(sqlText, [req.user.id, req.params.name])
@@ -50,7 +48,7 @@ router.get('/:name', (req, res) => {
 });
 
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     let newGame = req.body.data;
     const sqlText = `INSERT INTO games (user_id, game_name, game_image) VALUES($1, $2, $3);`;
     pool.query(sqlText, [req.user.id, newGame.name, newGame.image_url])

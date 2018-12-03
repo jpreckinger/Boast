@@ -1,8 +1,10 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-router.get('/requests', (req,res) => {
+
+router.get('/requests', rejectUnauthenticated, (req,res) => {
     const user = req.user.id;
     const sqlText = `SELECT users.username, users.id FROM friends 
                     JOIN users ON users.id = friends.user_id
@@ -16,7 +18,7 @@ router.get('/requests', (req,res) => {
     })
 });
 
-router.get('/instance/:name', (req,res) => {
+router.get('/instance/:name', rejectUnauthenticated, (req,res) => {
     const nameToSearch =  req.params.name ;
     const sqlText = `SELECT users.username, users.id FROM users 
                     JOIN friends ON friends.connected_user_id = users.id
@@ -48,7 +50,7 @@ router.get('/:name', (req, res) => {
 /**
  * POST route template
  */
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
     const requestedFriend = req.body.data;
     const sqlText = `INSERT INTO friends (user_id, connected_user_id) VALUES ($1, $2);`;
     pool.query(sqlText, [req.user.id, requestedFriend])
@@ -60,7 +62,7 @@ router.post('/', (req, res) => {
     })
 });
 
-router.post('/requests', (req, res) => {
+router.post('/requests', rejectUnauthenticated, (req, res) => {
     console.log('in friend add post');
     const requestedFriend = req.body.data;
     const sqlText = `INSERT INTO friends (user_id, connected_user_id, connected) VALUES ($1, $2, true);`;
@@ -73,7 +75,7 @@ router.post('/requests', (req, res) => {
     })
 });
 
-router.put('/:id', (req,res) => {
+router.put('/:id', rejectUnauthenticated, (req,res) => {
     const friendId = req.params.id;
     const userId = req.user.id;
     const sqlText = `UPDATE friends SET connected = true
@@ -87,7 +89,7 @@ router.put('/:id', (req,res) => {
     })
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const friendId = req.params.id;
     const userId = req.user.id;
     const sqlText = `DELETE FROM friends
