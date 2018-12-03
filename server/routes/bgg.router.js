@@ -2,6 +2,8 @@ const express = require('express');
 const bgg = require('bgg-axios');
 const router = express.Router();
 
+//this route requests information from the BGG API
+//and formats it to be sent back and displayed on the DOM
 
 router.post('/', (req,res) => {
     let query = '';

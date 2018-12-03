@@ -3,10 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
-/**
- * GET route template
- */
+//this gets all users and their wins based on instances that involved the current user
 router.get('/all', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT users.username, SUM(stats.victory::int) as wins
                     FROM stats
@@ -24,6 +21,8 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
     })
 });
 
+//this gets all users on their wins based on instances that involved the current user
+//and the given category
 router.get('/category/:id', rejectUnauthenticated, (req,res) => {
     console.log(req.params.id);
     const sqlText = `SELECT users.username, SUM(stats.victory::int) as wins
@@ -45,6 +44,8 @@ router.get('/category/:id', rejectUnauthenticated, (req,res) => {
     })
 });
 
+//this gets all users on their wins based on instances that involved the current user
+//and the given game
 router.get('/game/:id', rejectUnauthenticated, (req,res) => {
     console.log('in stats game');
     const sqlText = `SELECT users.username, users.id, SUM(stats.victory::int) as wins
@@ -64,11 +65,9 @@ router.get('/game/:id', rejectUnauthenticated, (req,res) => {
     .catch(() => {
         res.sendStatus(500);
     })
-})
+});
 
-/**
- * POST route template
- */
+//this creates a stat line to be paired with an instance
 router.post('/', (req, res) => {
     const sqlText = `INSERT INTO stats (user_id, instance_id) VALUES ($1, $2);`;
     const instance = req.body.instance[0].id; 
@@ -81,6 +80,7 @@ router.post('/', (req, res) => {
     })
 });
 
+//this updates the stat lines with the results from the resultsPage
 router.put('/:id', (req,res) => {
     const sqlText = `UPDATE stats SET (score, victory) = ($1, $2)
                     WHERE instance_id = $3 AND user_id = $4;`;
@@ -93,6 +93,6 @@ router.put('/:id', (req,res) => {
     .catch(()=> {
         res.sendStatus(500);
     })
-})
+});
 
 module.exports = router;

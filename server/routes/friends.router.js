@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
+//this gets friend requests for a specific user
 router.get('/requests', rejectUnauthenticated, (req,res) => {
     const user = req.user.id;
     const sqlText = `SELECT users.username, users.id FROM friends 
@@ -18,6 +18,8 @@ router.get('/requests', rejectUnauthenticated, (req,res) => {
     })
 });
 
+//this gets a user from the friends list based on closeness of the incoming string
+//to the friends username
 router.get('/instance/:name', rejectUnauthenticated, (req,res) => {
     const nameToSearch =  req.params.name ;
     const sqlText = `SELECT users.username, users.id FROM users 
@@ -31,8 +33,9 @@ router.get('/instance/:name', rejectUnauthenticated, (req,res) => {
         console.log('error live searching friends', error);
         res.sendStatus(500);
     })
-})
+});
 
+//this gets a user based on the incoming string
 router.get('/:name', (req, res) => {
     const nameToSearch =  req.params.name ;
     const sqlText = `SELECT username, id FROM users
@@ -47,9 +50,7 @@ router.get('/:name', (req, res) => {
     })
 });
 
-/**
- * POST route template
- */
+//this adds a friend request into the DB
 router.post('/', rejectUnauthenticated, (req, res) => {
     const requestedFriend = req.body.data;
     const sqlText = `INSERT INTO friends (user_id, connected_user_id) VALUES ($1, $2);`;
@@ -62,6 +63,8 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     })
 });
 
+//this adds a friend request into the DB, the route above is possibly
+//an artifact, needs testing
 router.post('/requests', rejectUnauthenticated, (req, res) => {
     console.log('in friend add post');
     const requestedFriend = req.body.data;
@@ -75,6 +78,7 @@ router.post('/requests', rejectUnauthenticated, (req, res) => {
     })
 });
 
+//this confirms an accepted request
 router.put('/:id', rejectUnauthenticated, (req,res) => {
     const friendId = req.params.id;
     const userId = req.user.id;
@@ -89,6 +93,7 @@ router.put('/:id', rejectUnauthenticated, (req,res) => {
     })
 });
 
+//this deletes a rejected request
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     const friendId = req.params.id;
     const userId = req.user.id;
@@ -101,6 +106,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     .catch(() => {
         res.sendStatus(500);
     })
-})
+});
 
 module.exports = router;

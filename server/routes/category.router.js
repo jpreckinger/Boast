@@ -3,10 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
-
-/**
- * GET route template
- */
+//this route gets all the games of a certain category ID
 router.get('/all/:id', rejectUnauthenticated, (req, res) => {
     const sqlText = `SELECT games.id, games.game_image as image_url,
                     games.game_name as name FROM games
@@ -24,6 +21,7 @@ router.get('/all/:id', rejectUnauthenticated, (req, res) => {
     })
 });
 
+//this route checks to see if a category already exists
 router.get('/check/:category', (req,res) => {
     const sqlText = `SELECT * FROM categories WHERE category_name = $1;`;
     const name = req.params.category;
@@ -36,6 +34,7 @@ router.get('/check/:category', (req,res) => {
     })
 });
 
+//this route gets all existing categories
 router.get('/list', (req,res) => {
     console.log('in category list');
     pool.query( `SELECT * FROM categories;`)
@@ -47,9 +46,7 @@ router.get('/list', (req,res) => {
     })
 })
 
-/**
- * POST route template
- */
+//this adds new categories if they are not found in the GET above
 router.post('/', (req, res) => {
     const sqlText = `INSERT INTO categories (category_name)
                     VALUES ($1);`;
@@ -63,6 +60,7 @@ router.post('/', (req, res) => {
     })
 });
 
+//this changes the category ID of a game
 router.put('/', (req, res) => {
     const sqlText = `UPDATE games 
                     SET category_id = categories.id

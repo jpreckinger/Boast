@@ -2,9 +2,7 @@ const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
 
-/**
- * GET route template
- */
+//this gets a game based on the games ID
 router.get('/:id', (req, res) => {
     console.log(req.params.id);
     const sqlText = `SELECT * FROM games
@@ -17,13 +15,6 @@ router.get('/:id', (req, res) => {
     .catch(() => {
         res.sendStatus(500);
     })
-});
-
-/**
- * POST route template
- */
-router.post('/', (req, res) => {
-
 });
 
 module.exports = router;
