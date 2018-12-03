@@ -1,6 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+//this function hits the board game API that allows users to search 
+//for and add board games to the DB
 function* fetchGames(action) {
     try{
         const response = yield call(axios.post, '/api/games', {data: action.payload} );

@@ -1,5 +1,7 @@
 import { takeLatest, put } from 'redux-saga/effects';
 
+//this function resets any existing players when a new game is selected,
+//then adds the current user in as an active player
 function* addUserToGame(action) {
     console.log('in set user');
     try{

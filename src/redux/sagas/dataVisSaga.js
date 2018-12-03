@@ -1,8 +1,13 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import axios from 'axios';
 
+//these sagas handle getting data for the pie charts.
+//they are called either for all the data on the user page,
+//the category data, or the game data, depending on the view
+//the user is currently on
+//then they dispatch the data to the redux store to be displayed.
+
 function* getCategoryData(action) {
-    console.log('in get data', action.payload);
     let wins = [];
     let users = [];
     try{

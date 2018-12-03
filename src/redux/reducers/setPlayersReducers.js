@@ -1,3 +1,5 @@
+//this empties the active users and sets the active players
+//with each new game
 const setPlayers = (state = [], action) => {
     switch (action.type) {
       case 'SET_PLAYERS':

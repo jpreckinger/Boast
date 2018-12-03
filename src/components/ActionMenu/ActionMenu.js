@@ -14,7 +14,6 @@ import PersonAdd from '@material-ui/icons/PersonAdd';
 import Input from '@material-ui/core/Input';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import './ActionMenu.css';
 import AddCircle from '@material-ui/icons/AddCircle';
 import RemoveCircle from '@material-ui/icons/RemoveCircle';
 import Mail from '@material-ui/icons/Mail';
