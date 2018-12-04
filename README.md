@@ -1,6 +1,8 @@
 # Boast
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+Boast was created to allow users to track their success in competitions with their friends, so that they can support their claims of being better than one another. Users can search for games using the Board Game Geek API. From there, they can add games to a database, with each user having their own unique games. Games can 'played,' creating a unique instance. Each instance has its own dataset, including players and scores. A user's data is constantly displayed on the screen in chart form. On the home menu, the user will see total wins, and moving on can see wins by category, or by specific game. The scores of the three previous plays, or instances, of any game are displayed on that game's view, in bar chart form.
+
+Users can asign each game a category, which will add to existing categories, or create a new one if it doesn't already exist. The games can athen be filtered by category for searching or for win percentage generation. Users can also connect with other users as friends, utilizing a live search feature to filter through existing users.
 
 ## Built With
 
@@ -47,20 +49,26 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Documentation
 
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
+https://docs.google.com/document/d/e/2PACX-1vQLj7b3x5xB8FuGcqGpzmpS9C32s6E2w_PVaYX08Cr4nGrsIrboeV5crA2T6ae260sKj1YKg_vHcKOo/pub
 
 ### Completed Features
 
-High level list of items completed.
-
-- [x] Feature a
-- [x] Feature b
+- [x] Search API for board games
+- [x] Add a game to the database
+- [x] Add users to a game instance, add scores
+- [x] Data visable in a variety of forms and datasets
+- [x] Connect with other users
+- [x] Asign categories, can filter by category
+- [x] Authentication and protected routes
+- [x] Live search users, friends, or games
 
 ### Next Steps
 
-Features that you would like to add at some point in the future.
-
-- [ ] Feature c
+- [ ] Messages and Wagers
+- [ ] Add Custom competitions with image file upload
+- [ ] Improve styling
+- [ ] Filterable data
+- [ ] More robust stat tracking, custom scoring
 
 ## Deployment
 
@@ -68,9 +76,9 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* Name of author(s)
+* Jonathan Reckinger
 
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
+* Starter code by Prime Digital Academy
