@@ -42,8 +42,8 @@ These instructions will get you a copy of the project up and running on your loc
 ## Screen Shot
 
 ![Home Page](public/images/home.jpg?raw=true)
-![Game Page](/images/game.jpg?raw=true)
-![Dropdown Action Menu](images/menu.jpg?raw=true)
+![Game Page](public/images/game.jpg?raw=true)
+![Dropdown Action Menu](public/images/menu.jpg?raw=true)
 
 ## Documentation
 
