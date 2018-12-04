@@ -4,6 +4,8 @@ Boast was created to allow users to track their success in competitions with the
 
 Users can asign each game a category, which will add to existing categories, or create a new one if it doesn't already exist. The games can athen be filtered by category for searching or for win percentage generation. Users can also connect with other users as friends, utilizing a live search feature to filter through existing users.
 
+Live app running at https://still-crag-62871.herokuapp.com/#/home
+
 ## Built With
 
 React.js
@@ -20,7 +22,7 @@ Moment.js
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
@@ -69,10 +71,6 @@ https://docs.google.com/document/d/e/2PACX-1vQLj7b3x5xB8FuGcqGpzmpS9C32s6E2w_PVa
 - [ ] Improve styling
 - [ ] Filterable data
 - [ ] More robust stat tracking, custom scoring
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Authors
 
