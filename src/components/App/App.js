@@ -14,7 +14,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import UserPage from '../UserPage/UserPage';
 import AddGame from '../AddGame/AddGame';
-import CustomGame from '../CustomGame/CustomGame';
 import GamePage from '../GamePage/GamePage';
 import InstancePage from '../InstancePage/InstancePage';
 import ResultsPage from '../ResultsPage/ResultsPage';
@@ -40,7 +39,6 @@ class App extends Component {
             <Redirect exact from="/" to="/home" />
             <ProtectedRoute exact path="/home" component={UserPage} />
             <ProtectedRoute exact path="/addgame" component={AddGame} />
-            <ProtectedRoute exact path="/customgame" component={CustomGame} />
             <ProtectedRoute exact path="/gamepage" component={GamePage} />
             <ProtectedRoute exact path="/playgame" component={InstancePage} />
             <ProtectedRoute exact path="/results" component={ResultsPage} />
